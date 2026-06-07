@@ -1,0 +1,1598 @@
+---
+title: "SOC10_FINALPROJECT_CODE by Celine Qin"
+output:
+  pdf_document: default
+  html_document: default
+date: "2026-06-07"
+---
+
+Get coordinates for the 46 public high school addresses (32 for San Jose, 14 for Stockton). School addresses were collected on Excel sheets, manually cleaned, and available through the CA Department of Education School Directory. 
+```{r coordinates, echo = TRUE, eval = FALSE, message = FALSE}
+library(readxl)
+library(tidygeocoder)
+library(dplyr)
+library(readr)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# pull in San Jose school list; keep only public high schools
+sj_schools <- read_excel(
+  file.path(DATA, "San Jose_CDESchoolDirectoryExport-2.xlsx"), skip = 4
+) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, `Street Address`, `Street City`, `Street Zip`) %>%
+  mutate(City = "San Jose")
+
+# pull in Stockton school list; keep only public high schools
+st_schools <- read_excel(
+  file.path(DATA, "Stockton_CDESchoolDirectoryExport-3.xlsx"), skip = 4
+) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, `Street Address`, `Street City`, `Street Zip`) %>%
+  mutate(City = "Stockton")
+
+# stack both cities into one table; build full address string for each school
+all_schools <- bind_rows(sj_schools, st_schools) %>%
+  mutate(Full_Address = paste(`Street Address`, `Street City`, "CA", `Street Zip`))
+
+# send all addresses to Census batch geocoder 
+geocoded <- all_schools %>%
+  geocode(Full_Address, method = "census", lat = lat, long = lng)
+
+# OpenStreetMap  when needed
+failed <- which(is.na(geocoded$lat))
+if (length(failed) > 0) {
+  retry <- geocoded[failed, ] %>%
+    geocode(Full_Address, method = "osm", lat = lat2, long = lng2)
+  geocoded$lat[failed] <- retry$lat2
+  geocoded$lng[failed] <- retry$lng2
+}
+
+# check
+cat("Geocoded:", sum(!is.na(geocoded$lat)), "/", nrow(geocoded), "schools\n")
+
+# save to csv
+school_coords <- geocoded %>%
+  select(City, School, Full_Address, lat, lng)
+
+write_csv(school_coords, file.path(DATA, "school_coords.csv"))
+cat("Saved school_coords.csv\n")
+```
+
+Create 1 mile buffer zones around each school address, 46 total across Stockton and San Jose. This buffer zone, also known as the school exposure zone, is the standard Unit of Analysis for this project.
+```{r buffers, echo = TRUE, eval = FALSE, message = FALSE}
+library(readr)
+library(sf)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# load school coordinates 
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"))
+
+# get actual map points
+schools_sf <- school_coords %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326)
+
+# CA coordinate system 
+schools_sf <- st_transform(schools_sf, crs = 3310)
+
+# draw a 1-mile buffer zone around each school
+schools_buffer <- st_buffer(schools_sf, dist = 1609.34)
+
+cat("Buffers created:", nrow(schools_buffer), "\n")
+
+```
+
+Get the estimated population within each 1 mile buffer zone using ACS. For use later in variable calculations.
+```{r population, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+library(openxlsx)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# plug in Census API key
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# grab 2019-2023 ACS total population data for every census tract in Santa Clara (San Jose) and San Joaquin (Stockton) counties
+pop_data <- get_acs(
+  geography = "tract",
+  variables = "B01003_001",
+  state = "CA",
+  county = c("Santa Clara", "San Joaquin"),
+  geometry = TRUE,
+  year = 2023
+) %>%
+  st_transform(crs = 3310)
+
+# rebuild the school buffers so this chunk can run on its own
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"))
+schools_buffer <- school_coords %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>%
+  st_buffer(dist = 1609.34)
+
+# for each school buffer, figure out how much of each census tract falls inside it,
+# then use that fraction to estimate the population living in the buffer
+pop_in_buffer <- function(buf) {
+  hits <- st_intersects(pop_data, buf, sparse = FALSE)[, 1]
+  tracts <- pop_data[hits, ]
+  if (nrow(tracts) == 0) return(0)
+  intersection <- st_intersection(tracts, buf)
+  if (nrow(intersection) == 0) return(0)
+  tract_areas   <- as.numeric(st_area(tracts))
+  overlap_areas <- as.numeric(st_area(intersection))
+  matched_areas <- tract_areas[match(intersection$GEOID, tracts$GEOID)]
+  proportions   <- pmin(overlap_areas / matched_areas, 1)
+  round(sum(intersection$estimate * proportions, na.rm = TRUE))
+}
+
+# run for all 46 schools
+schools_buffer$population_1mi <- vapply(
+  seq_len(nrow(schools_buffer)),
+  function(i) pop_in_buffer(schools_buffer[i, ]),
+  numeric(1)
+)
+
+# pull out needed data and save
+results <- schools_buffer %>%
+  st_drop_geometry() %>%
+  select(City, School, population_1mi)
+
+write.xlsx(results, file.path(DATA, "Population_Buffer_Results.xlsx"))
+cat("Saved Population_Buffer_Results.xlsx\n")
+```
+
+For each of the high schools, get the % of students who did not meet the ELA and Math Standard for the 2024-2025 CAASPP Exam. Pull from the Santa Clara and San Joaquin County data sets, available through the CAASPP website.
+```{r CAASPP, echo = TRUE, eval = FALSE, message = FALSE}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(readxl)
+library(openxlsx)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# process a CAASPP txt file and get % not meeting standard per school
+get_caaspp_scores <- function(filepath) {
+  read_delim(filepath, delim = "^", show_col_types = FALSE) %>%
+    # keep only grade 11 (high school), all students combined, school-level rows
+    filter(
+      Grade == 11,
+      `Student Group ID` == 1,
+      !is.na(`School Name`)
+    ) %>%
+    # convert the % met and above column to numeric (suppressed values become NA)
+    mutate(
+      pct_met_above   = suppressWarnings(as.numeric(`Percentage Standard Met and Above`)),
+      # % not meeting standard = everyone who didn't meet OR exceed the standard
+      pct_not_meeting = 100 - pct_met_above
+    ) %>%
+    # average ELA (Test ID 1) and Math (Test ID 2) together per school
+    group_by(`School Name`) %>%
+    summarise(pct_unsatisfactory = round(mean(pct_not_meeting, na.rm = TRUE), 2),
+              .groups = "drop")
+}
+
+# process both county files
+sc_scores <- get_caaspp_scores(file.path(DATA, "SantaClaraCounty_CAASPPScores.txt"))
+sj_scores <- get_caaspp_scores(file.path(DATA, "SanJoaquinCounty_CAASPPScores.txt"))
+
+# load the school lists to match against
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE)
+sj_schools <- school_coords %>% filter(City == "San Jose")
+st_schools  <- school_coords %>% filter(City == "Stockton")
+
+# match scores to 32 San Jose high schools
+sj_matched <- sj_schools %>%
+  left_join(sc_scores, by = c("School" = "School Name")) %>%
+  select(School, pct_unsatisfactory)
+
+# match scores to 14 Stockton high schools
+st_matched <- st_schools %>%
+  left_join(sj_scores, by = c("School" = "School Name")) %>%
+  select(School, pct_unsatisfactory)
+
+cat("San Jose matched:", sum(!is.na(sj_matched$pct_unsatisfactory)), "/ 32\n")
+cat("Stockton matched:", sum(!is.na(st_matched$pct_unsatisfactory)), "/ 14\n")
+
+# insert into CAASPP spreadsheet
+write_caaspp <- function(xlsx_path, matched_df) {
+  wb <- loadWorkbook(xlsx_path)
+  df <- read_excel(xlsx_path)
+  for (i in seq_len(nrow(df))) {
+    school <- df$School[i]
+    if (is.na(school)) next
+    score <- matched_df$pct_unsatisfactory[matched_df$School == school]
+    if (length(score) == 1) {
+      writeData(wb, sheet = 1, x = score,
+                startCol = 3, startRow = i + 1, colNames = FALSE)
+    }
+  }
+  saveWorkbook(wb, xlsx_path, overwrite = TRUE)
+  cat("Saved:", basename(xlsx_path), "\n")
+}
+
+write_caaspp(file.path(DATA, "San Jose_CAASPP.xlsx"),  sj_matched)
+write_caaspp(file.path(DATA, "Stockton_CAASPP.xlsx"), st_matched)
+```
+
+Join data sets together to get two comprehensive data sets, one each for Stockton and San Jose, displaying data for every 1 mile School Exposure Buffer Zone (Unit of Analysis) in these each of these cities. For each data set, each row looks at 1 high school (and within their 1 mile buffer). Information includes relevant school information (name, district, address, school type (magnet, charter, public Y/N), grade levels), school-based transportation rating, transit distance score, vehicle access score, Mobility Access Index (average of school-based transportation rating, transit distance score, and vehicle access score), crime safety score, safety from crash score, Transportation Safety Index (average of crime safety score and safety from crash score), Risk Score (1.0 minus the average of Mobility Access Index and Transportation Safety Index), and the decimal percent 0.0-1.0 of Unsatisfactory CAASPP scores.
+```{r all data, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get vehicle access score with ACS
+
+#ACS household vehicle data for both counties
+vehicle_raw <- get_acs(
+  geography = "tract",
+  variables = c(total_hh = "B08201_001", no_vehicle = "B08201_002"),
+  state = "CA",
+  county = c("Santa Clara", "San Joaquin"),
+  geometry = TRUE,
+  year = 2023,
+  output = "wide"
+) %>%
+  st_transform(crs = 3310)
+
+# rebuild 1-mile school buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE)
+schools_buffer <- school_coords %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>%
+  st_buffer(dist = 1609.34)
+
+# per buffer, calculate weighted % of households with no vehicle
+pct_no_veh_in_buffer <- function(buf) {
+  hits <- st_intersects(vehicle_raw, buf, sparse = FALSE)[, 1]
+  tracts <- vehicle_raw[hits, ]
+  if (nrow(tracts) == 0) return(NA_real_)
+  intersection <- st_intersection(tracts, buf)
+  if (nrow(intersection) == 0) return(NA_real_)
+  tract_areas   <- as.numeric(st_area(tracts))
+  overlap_areas <- as.numeric(st_area(intersection))
+  matched_areas <- tract_areas[match(intersection$GEOID, tracts$GEOID)]
+  proportions   <- pmin(overlap_areas / matched_areas, 1)
+  wt_hh <- intersection$total_hhE * proportions
+  wt_nv <- intersection$no_vehicleE * proportions
+  if (sum(wt_hh, na.rm = TRUE) == 0) return(NA_real_)
+  round((sum(wt_nv, na.rm = TRUE) / sum(wt_hh, na.rm = TRUE)) * 100, 4)
+}
+
+schools_buffer$pct_no_vehicle <- vapply(
+  seq_len(nrow(schools_buffer)),
+  function(i) pct_no_veh_in_buffer(schools_buffer[i, ]),
+  numeric(1)
+)
+
+# vehicle access score: 1 - % no vehicle / 100  (higher score = more households have cars)
+vehicle_scores <- schools_buffer %>%
+  st_drop_geometry() %>%
+  mutate(vehicle_access_score = round(1 - (pct_no_vehicle / 100), 4)) %>%
+  select(City, School, vehicle_access_score)
+
+# load all spreadsheets
+
+# school info (name, district, address, school type, grade levels)
+sj_info <- read_excel(file.path(DATA, "San Jose_CDESchoolDirectoryExport-2.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, District, `Street Address`, `Public Yes/No`,
+         `Magnet Yes/No`, `Charter Yes/No`, `Low Grade`, `High Grade`) %>%
+  mutate(City = "San Jose")
+
+st_info <- read_excel(file.path(DATA, "Stockton_CDESchoolDirectoryExport-3.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, District, `Street Address`, `Public Yes/No`,
+         `Magnet Yes/No`, `Charter Yes/No`, `Low Grade`, `High Grade`) %>%
+  mutate(City = "Stockton")
+
+school_info <- bind_rows(sj_info, st_info)
+
+# school-based transportation ratings
+transport <- bind_rows(
+  read_excel(file.path(DATA, "San Jose_School-based_Transportation.xlsx")) %>%
+    select(School, transport_rating = `School Based Transport Rating`),
+  read_excel(file.path(DATA, "Stockton_School-based_Transportation.xlsx")) %>%
+    select(School, transport_rating = `School Based Transport Rating`)
+)
+
+# transit distance scores
+transit <- bind_rows(
+  read_excel(file.path(DATA, "SanJose_DistanceFromTransitStop.xlsx")) %>%
+    select(School, transit_score = `Transit Distance Score (1.0 - Row D). 0.0 = farthest, 1.0 = closest`),
+  read_excel(file.path(DATA, "Stockton_DistanceFromTransitStop.xlsx")) %>%
+    select(School, transit_score = `Transit Distance Score (1.0 - Row D). 0.0 = farthest, 1.0 = closest`)
+)
+
+# crime safety scores
+crime <- bind_rows(
+  read_excel(file.path(DATA, "San Jose_#CrimeEvents.xlsx")) %>%
+    select(School, crime_safety_score = `Crime Safety Score (0.0 = highest crime rate, 1.0 = lowest crime rate), min-max normalization inverted`),
+  read_excel(file.path(DATA, "Stockton_#CrimeEvents.xlsx")) %>%
+    select(School, crime_safety_score = `Crime Safety Score (0.0 = highest crime rate, 1.0 = lowest crime rate), min-max normalization inverted`)
+)
+
+# crash safety scores
+crash <- bind_rows(
+  read_excel(file.path(DATA, "San Jose_Crashes.xlsx")) %>%
+    select(School, crash_safety_score = `Safety From Crash Score (1.0- Column D Value) (0.0 = unsafe, 1.0 = safe)`),
+  read_excel(file.path(DATA, "Stockton_Crashes.xlsx")) %>%
+    select(School, crash_safety_score = `Safety From Crash Score (1.0- Column D Value) (0.0 = unsafe, 1.0 = safe)`)
+)
+
+# CAASPP unsatisfactory scores (0-1 scale)
+caaspp <- bind_rows(
+  read_excel(file.path(DATA, "San Jose_CAASPP.xlsx")) %>%
+    select(School, caaspp_unsatisfactory = `CAASPP Unsatisfactory (0-1)`),
+  read_excel(file.path(DATA, "Stockton_CAASPP.xlsx")) %>%
+    select(School, caaspp_unsatisfactory = `CAASPP Unsatisfactory (0-1)`)
+)
+
+# join everything together by school name
+
+all_data <- school_info %>%
+  left_join(transport,      by = "School") %>%
+  left_join(transit,        by = "School") %>%
+  left_join(vehicle_scores, by = c("City", "School")) %>%
+  left_join(crime,          by = "School") %>%
+  left_join(crash,          by = "School") %>%
+  left_join(caaspp,         by = "School")
+
+#calculate the three indices
+
+all_data <- all_data %>%
+  mutate(
+    # average of school transport rating, transit score, vehicle access score
+    mobility_access_index = round(
+      rowMeans(cbind(transport_rating, transit_score, vehicle_access_score), na.rm = TRUE), 4),
+
+    # average of crime safety score and crash safety score
+    transportation_safety_index = round(
+      rowMeans(cbind(crime_safety_score, crash_safety_score), na.rm = TRUE), 4),
+
+    # 1 minus the average of both indices; higher = more at-risk
+    risk_score = round(
+      1 - rowMeans(cbind(mobility_access_index, transportation_safety_index), na.rm = TRUE), 4)
+  )
+
+# split into San Jose and Stockton
+
+sj_data <- all_data %>% filter(City == "San Jose")
+st_data <- all_data %>% filter(City == "Stockton")
+
+cat("San Jose schools:", nrow(sj_data), "\n")
+cat("Stockton schools:", nrow(st_data), "\n")
+cat("Columns:", paste(names(all_data), collapse = " | "), "\n")
+
+head(sj_data)
+head(st_data)
+```
+
+FOR SAN JOSE: Choropleth Map of MAI vs. TAI.
+```{r SJ - MAI vs. TAI choropleth, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(sf)
+library(tigris)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# get zip codes for each San Jose school from the CDE directory
+sj_zips <- read_excel(file.path(DATA, "San Jose_CDESchoolDirectoryExport-2.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, zip = `Street Zip`) %>%
+  mutate(zip = substr(zip, 1, 5))
+
+# join MAI and TSI values from sj_data
+sj_school_values <- sj_data %>%
+  select(School, mobility_access_index, transportation_safety_index) %>%
+  left_join(sj_zips, by = "School")
+
+# average MAI and TSI by zip code — some zips have more than one school
+sj_by_zip <- sj_school_values %>%
+  group_by(zip) %>%
+  summarise(
+    avg_mai = round(mean(mobility_access_index,       na.rm = TRUE), 4),
+    avg_tsi = round(mean(transportation_safety_index, na.rm = TRUE), 4),
+    .groups = "drop"
+  )
+
+# download zip code boundaries and keep only San Jose school zip codes
+sj_zctas <- zctas(cb = TRUE, year = 2020) %>%
+  filter(ZCTA5CE20 %in% sj_by_zip$zip) %>%
+  st_transform(crs = 4326)
+
+# join averaged scores to zip code boundaries
+sj_map <- sj_zctas %>%
+  left_join(sj_by_zip, by = c("ZCTA5CE20" = "zip"))
+
+# MAI Choropleth
+mai_min <- min(sj_map$avg_mai, na.rm = TRUE)
+mai_max <- max(sj_map$avg_mai, na.rm = TRUE)
+
+ggplot(sj_map) +
+  geom_sf(aes(fill = avg_mai), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#4B0082", high = "#F5B8FF",
+    name = "MAI Score",
+    breaks = c(mai_min, mai_max),
+    labels = c(paste0("Least (", round(mai_min, 2), ")"),
+               paste0("Most (", round(mai_max, 2), ")"))
+  ) +
+  labs(
+    title    = "Mobility Access Index (MAI) by Zip Code — San Jose Public High Schools",
+    subtitle = "Darker = Less Mobility Access  |  Lighter = More Mobility Access",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+
+# TSI Choropleth
+tsi_min <- min(sj_map$avg_tsi, na.rm = TRUE)
+tsi_max <- max(sj_map$avg_tsi, na.rm = TRUE)
+
+ggplot(sj_map) +
+  geom_sf(aes(fill = avg_tsi), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#4B0082", high = "#F5B8FF",
+    name = "TSI Score",
+    breaks = c(tsi_min, tsi_max),
+    labels = c(paste0("Least (", round(tsi_min, 2), ")"),
+               paste0("Most (", round(tsi_max, 2), ")"))
+  ) +
+  labs(
+    title    = "Transportation Safety Index (TSI) by Zip Code — San Jose Public High Schools",
+    subtitle = "Darker = Less Safe  |  Lighter = More Safe",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+FOR SAN JOSE: Choropleth Map of Risk vs. CAASPP
+```{r SJ - risk vs. CAASPP choropleth, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(sf)
+library(tigris)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# get zip codes for each San Jose school from the CDE directory
+sj_zips <- read_excel(file.path(DATA, "San Jose_CDESchoolDirectoryExport-2.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, zip = `Street Zip`) %>%
+  mutate(zip = substr(zip, 1, 5))
+
+# join risk score and CAASPP values from sj_data
+sj_school_values <- sj_data %>%
+  select(School, risk_score, caaspp_unsatisfactory) %>%
+  left_join(sj_zips, by = "School")
+
+# average by zip code, some zips have more than one school
+sj_by_zip <- sj_school_values %>%
+  group_by(zip) %>%
+  summarise(
+    avg_risk   = round(mean(risk_score,           na.rm = TRUE), 4),
+    avg_caaspp = round(mean(caaspp_unsatisfactory, na.rm = TRUE), 4),
+    .groups = "drop"
+  )
+
+# download 2020 zip code boundaries and keep only San Jose school zip codes
+sj_zctas <- zctas(cb = TRUE, year = 2020) %>%
+  filter(ZCTA5CE20 %in% sj_by_zip$zip) %>%
+  st_transform(crs = 4326)
+
+# join averaged scores to zip code boundaries
+sj_map <- sj_zctas %>%
+  left_join(sj_by_zip, by = c("ZCTA5CE20" = "zip"))
+
+# Risk Score Choropleth; darker = more at risk
+risk_min <- min(sj_map$avg_risk, na.rm = TRUE)
+risk_max <- max(sj_map$avg_risk, na.rm = TRUE)
+
+ggplot(sj_map) +
+  geom_sf(aes(fill = avg_risk), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#F5B8FF", high = "#4B0082",
+    name = "Risk Score",
+    breaks = c(risk_min, risk_max),
+    labels = c(paste0("Least Risk (", round(risk_min, 2), ")"),
+               paste0("Most Risk (", round(risk_max, 2), ")"))
+  ) +
+  labs(
+    title    = "Risk Score by Zip Code — San Jose Public High Schools",
+    subtitle = "Darker = Higher Risk  |  Lighter = Lower Risk",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+
+# CAASPP Choropleth; darker = more unsatisfactory
+caaspp_min <- min(sj_map$avg_caaspp, na.rm = TRUE)
+caaspp_max <- max(sj_map$avg_caaspp, na.rm = TRUE)
+
+ggplot(sj_map) +
+  geom_sf(aes(fill = avg_caaspp), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#F5B8FF", high = "#4B0082",
+    name = "% Unsatisfactory",
+    breaks = c(caaspp_min, caaspp_max),
+    labels = c(paste0("Best (", round(caaspp_min * 100, 1), "%)"),
+               paste0("Worst (", round(caaspp_max * 100, 1), "%)"))
+  ) +
+  labs(
+    title    = "CAASPP Unsatisfactory Rate by Zip Code — San Jose Public High Schools",
+    subtitle = "Darker = More Students Not Meeting Standard  |  Lighter = Fewer Students Not Meeting Standard",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+FOR SAN JOSE: Choropleth Map Income
+```{r SJ - Income Choropleth, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(sf)
+library(tigris)
+library(tidycensus)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get zip codes for each San Jose school from the CDE directory
+sj_zips <- read_excel(file.path(DATA, "San Jose_CDESchoolDirectoryExport-2.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  mutate(zip = substr(`Street Zip`, 1, 5)) %>%
+  distinct(zip)
+
+# pull median household income for each zip code (ZCTA) from the ACS
+sj_income_zip <- get_acs(geography = "zcta", variables = "B19013_001", year = 2023) %>%
+  filter(GEOID %in% sj_zips$zip) %>%
+  select(zip = GEOID, median_income = estimate)
+
+# download 2020 zip code boundaries and keep only San Jose school zip codes
+sj_zctas <- zctas(cb = TRUE, year = 2020) %>%
+  filter(ZCTA5CE20 %in% sj_zips$zip) %>%
+  st_transform(crs = 4326)
+
+# join income to zip code boundaries
+sj_map <- sj_zctas %>%
+  left_join(sj_income_zip, by = c("ZCTA5CE20" = "zip"))
+
+# Median Household Income Choropleth; darker = lower income
+inc_min <- min(sj_map$median_income, na.rm = TRUE)
+inc_max <- max(sj_map$median_income, na.rm = TRUE)
+
+ggplot(sj_map) +
+  geom_sf(aes(fill = median_income), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#4B0082", high = "#F5B8FF",
+    name = "Median Income",
+    breaks = c(inc_min, inc_max),
+    labels = c(paste0("Lowest ($", formatC(inc_min, format = "d", big.mark = ","), ")"),
+               paste0("Highest ($", formatC(inc_max, format = "d", big.mark = ","), ")"))
+  ) +
+  labs(
+    title    = "Median Household Income by Zip Code — San Jose Public High Schools",
+    subtitle = "Darker = Lower Income  |  Lighter = Higher Income",
+    caption  = "Source: 2019-2023 ACS (B19013_001)"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+FOR STOCKTON: Choropleth Map of MAI vs. TAI.
+```{r ST - MAI vs. TAI choropleth, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(sf)
+library(tigris)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# get zip codes for each Stockton school from the CDE directory
+st_zips <- read_excel(file.path(DATA, "Stockton_CDESchoolDirectoryExport-3.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, zip = `Street Zip`) %>%
+  mutate(zip = substr(zip, 1, 5))
+
+# join MAI and TSI values from st_data
+st_school_values <- st_data %>%
+  select(School, mobility_access_index, transportation_safety_index) %>%
+  left_join(st_zips, by = "School")
+
+# average MAI and TSI by zip code
+st_by_zip <- st_school_values %>%
+  group_by(zip) %>%
+  summarise(
+    avg_mai = round(mean(mobility_access_index,       na.rm = TRUE), 4),
+    avg_tsi = round(mean(transportation_safety_index, na.rm = TRUE), 4),
+    .groups = "drop"
+  )
+
+# download 2020 zip code boundaries and keep only Stockton school zip codes
+st_zctas <- zctas(cb = TRUE, year = 2020) %>%
+  filter(ZCTA5CE20 %in% st_by_zip$zip) %>%
+  st_transform(crs = 4326)
+
+# join averaged scores to zip code boundaries
+st_map <- st_zctas %>%
+  left_join(st_by_zip, by = c("ZCTA5CE20" = "zip"))
+
+# MAI Choropleth; darker = less mobility access
+mai_min <- min(st_map$avg_mai, na.rm = TRUE)
+mai_max <- max(st_map$avg_mai, na.rm = TRUE)
+
+ggplot(st_map) +
+  geom_sf(aes(fill = avg_mai), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#7B2400", high = "#FFD5B8",
+    name = "MAI Score",
+    breaks = c(mai_min, mai_max),
+    labels = c(paste0("Least (", round(mai_min, 2), ")"),
+               paste0("Most (", round(mai_max, 2), ")"))
+  ) +
+  labs(
+    title    = "Mobility Access Index (MAI) by Zip Code — Stockton Public High Schools",
+    subtitle = "Darker = Less Mobility Access  |  Lighter = More Mobility Access",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+
+# TSI Choropleth; darker = less safe
+tsi_min <- min(st_map$avg_tsi, na.rm = TRUE)
+tsi_max <- max(st_map$avg_tsi, na.rm = TRUE)
+
+ggplot(st_map) +
+  geom_sf(aes(fill = avg_tsi), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#7B2400", high = "#FFD5B8",
+    name = "TSI Score",
+    breaks = c(tsi_min, tsi_max),
+    labels = c(paste0("Least (", round(tsi_min, 2), ")"),
+               paste0("Most (", round(tsi_max, 2), ")"))
+  ) +
+  labs(
+    title    = "Transportation Safety Index (TSI) by Zip Code — Stockton Public High Schools",
+    subtitle = "Darker = Less Safe  |  Lighter = More Safe",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+FOR STOCKTON: Choropleth Map of Risk vs. CAASPP
+```{r ST - risk vs. CAASPP choropleth, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(sf)
+library(tigris)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# get zip codes for each Stockton school from the CDE directory
+st_zips <- read_excel(file.path(DATA, "Stockton_CDESchoolDirectoryExport-3.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  select(School, zip = `Street Zip`) %>%
+  mutate(zip = substr(zip, 1, 5))
+
+# join risk score and CAASPP values from st_data
+st_school_values <- st_data %>%
+  select(School, risk_score, caaspp_unsatisfactory) %>%
+  left_join(st_zips, by = "School")
+
+# average by zip code
+st_by_zip <- st_school_values %>%
+  group_by(zip) %>%
+  summarise(
+    avg_risk   = round(mean(risk_score,            na.rm = TRUE), 4),
+    avg_caaspp = round(mean(caaspp_unsatisfactory, na.rm = TRUE), 4),
+    .groups = "drop"
+  )
+
+# download 2020 zip code boundaries and keep only Stockton school zip codes
+st_zctas <- zctas(cb = TRUE, year = 2020) %>%
+  filter(ZCTA5CE20 %in% st_by_zip$zip) %>%
+  st_transform(crs = 4326)
+
+# join averaged scores to zip code boundaries
+st_map <- st_zctas %>%
+  left_join(st_by_zip, by = c("ZCTA5CE20" = "zip"))
+
+# Risk Score Choropleth; darker = more at risk
+risk_min <- min(st_map$avg_risk, na.rm = TRUE)
+risk_max <- max(st_map$avg_risk, na.rm = TRUE)
+
+ggplot(st_map) +
+  geom_sf(aes(fill = avg_risk), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#FFD5B8", high = "#7B2400",
+    name = "Risk Score",
+    breaks = c(risk_min, risk_max),
+    labels = c(paste0("Least Risk (", round(risk_min, 2), ")"),
+               paste0("Most Risk (", round(risk_max, 2), ")"))
+  ) +
+  labs(
+    title    = "Risk Score by Zip Code — Stockton Public High Schools",
+    subtitle = "Darker = Higher Risk  |  Lighter = Lower Risk",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+
+# CAASPP Choropleth; darker = more unsatisfactory
+caaspp_min <- min(st_map$avg_caaspp, na.rm = TRUE)
+caaspp_max <- max(st_map$avg_caaspp, na.rm = TRUE)
+
+ggplot(st_map) +
+  geom_sf(aes(fill = avg_caaspp), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#FFD5B8", high = "#7B2400",
+    name = "% Unsatisfactory",
+    breaks = c(caaspp_min, caaspp_max),
+    labels = c(paste0("Best (", round(caaspp_min * 100, 1), "%)"),
+               paste0("Worst (", round(caaspp_max * 100, 1), "%)"))
+  ) +
+  labs(
+    title    = "CAASPP Unsatisfactory Rate by Zip Code — Stockton Public High Schools",
+    subtitle = "Darker = More Students Not Meeting Standard  |  Lighter = Fewer Students Not Meeting Standard",
+    caption  = "Values averaged across schools within each zip code"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+FOR STOCKTON: Choropleth Map Income
+```{r Stockton - Income Choropleth, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(sf)
+library(tigris)
+library(tidycensus)
+library(dplyr)
+library(readr)
+library(readxl)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get zip codes for each Stockton school from the CDE directory
+st_zips <- read_excel(file.path(DATA, "Stockton_CDESchoolDirectoryExport-3.xlsx"), skip = 4) %>%
+  filter(`Public Yes/No` == "Y", `High Grade` == "12") %>%
+  mutate(zip = substr(`Street Zip`, 1, 5)) %>%
+  distinct(zip)
+
+# pull median household income for each zip code (ZCTA) from the ACS
+st_income_zip <- get_acs(geography = "zcta", variables = "B19013_001", year = 2023) %>%
+  filter(GEOID %in% st_zips$zip) %>%
+  select(zip = GEOID, median_income = estimate)
+
+# download 2020 zip code boundaries and keep only Stockton school zip codes
+st_zctas <- zctas(cb = TRUE, year = 2020) %>%
+  filter(ZCTA5CE20 %in% st_zips$zip) %>%
+  st_transform(crs = 4326)
+
+# join income to zip code boundaries
+st_map <- st_zctas %>%
+  left_join(st_income_zip, by = c("ZCTA5CE20" = "zip"))
+
+# Median Household Income Choropleth; darker = lower income
+inc_min <- min(st_map$median_income, na.rm = TRUE)
+inc_max <- max(st_map$median_income, na.rm = TRUE)
+
+ggplot(st_map) +
+  geom_sf(aes(fill = median_income), color = "white", linewidth = 0.4) +
+  scale_fill_gradient(
+    low  = "#7B2400", high = "#FFD5B8",
+    name = "Median Income",
+    breaks = c(inc_min, inc_max),
+    labels = c(paste0("Lowest ($", formatC(inc_min, format = "d", big.mark = ","), ")"),
+               paste0("Highest ($", formatC(inc_max, format = "d", big.mark = ","), ")"))
+  ) +
+  labs(
+    title    = "Median Household Income by Zip Code — Stockton Public High Schools",
+    subtitle = "Darker = Lower Income  |  Lighter = Higher Income",
+    caption  = "Source: 2019-2023 ACS (B19013_001)"
+  ) +
+  theme_void() +
+  theme(
+    plot.title    = element_text(size = 12, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 9,  hjust = 0.5),
+    plot.caption  = element_text(size = 7,  hjust = 0.5),
+    legend.position = "right"
+  )
+```
+
+FOR SAN JOSE: Analyzing Risk Scores vs. how the area's income compares to the city's median household income. Top 5 most at-risk and least at-risk schools are considered. Table displays shown.
+```{r SJ -risk vs. income only tables, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# San Jose city-wide median household income
+sj_city_median <- get_acs(geography = "place", variables = "B19013_001",
+  state = "CA", year = 2023) %>%
+  filter(grepl("San Jose city", NAME)) %>% pull(estimate)
+cat("San Jose city-wide median household income: $",
+    formatC(sj_city_median, format = "d", big.mark = ","), "\n\n")
+
+# get tract-level income for Santa Clara county with geometry
+sj_income_raw <- get_acs(geography = "tract", variables = "B19013_001",
+  state = "CA", county = "Santa Clara", geometry = TRUE, year = 2023) %>%
+  st_transform(crs = 3310) %>% rename(median_income = estimate)
+
+# rebuild San Jose school buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE)
+sj_buf <- school_coords %>% filter(City == "San Jose") %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+
+# calculate weighted average income within each 1-mile buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  intersection <- st_intersection(tracts, buf); if (nrow(intersection) == 0) return(NA_real_)
+  tract_areas   <- as.numeric(st_area(tracts))
+  overlap_areas <- as.numeric(st_area(intersection))
+  matched_areas <- tract_areas[match(intersection$GEOID, tracts$GEOID)]
+  proportions   <- pmin(overlap_areas / matched_areas, 1)
+  round(weighted.mean(intersection$median_income, proportions, na.rm = TRUE))
+}
+
+sj_buf$median_income <- vapply(seq_len(nrow(sj_buf)),
+  function(i) income_in_buffer(sj_buf[i, ], sj_income_raw), numeric(1))
+
+# join income onto existing sj_data
+sj_full <- sj_data %>%
+  left_join(sj_buf %>% st_drop_geometry() %>%
+    select(School, median_income),
+    by = "School") %>%
+  mutate(
+    `Buffer Income`   = paste0("$", formatC(median_income, format = "d", big.mark = ",")),
+    `vs. City Median` = ifelse(
+      (median_income - sj_city_median) >= 0,
+      paste0("+$", formatC(median_income - sj_city_median, format = "d", big.mark = ","), " above"),
+      paste0("-$", formatC(abs(median_income - sj_city_median), format = "d", big.mark = ","), " below"))
+  )
+
+# top 5 most at-risk
+cat("--- San Jose: Top 5 Most At-Risk ---\n")
+print(sj_full %>% arrange(desc(risk_score)) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`))
+
+# top 5 least at-risk
+cat("\n--- San Jose: Top 5 Least At-Risk ---\n")
+print(sj_full %>% arrange(risk_score) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`))
+```
+
+FOR SAN JOSE: Analyzing Risk Scores vs. how the area's income compares to the city's median household income WITH racial make-up also shown. Top 5 most at-risk and least at-risk schools are considered. Table displays shown.
+```{r SJ -risk vs. income tables, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# San Jose city-wide median household income
+sj_city_median <- get_acs(geography = "place", variables = "B19013_001",
+  state = "CA", year = 2023) %>%
+  filter(grepl("San Jose city", NAME)) %>% pull(estimate)
+cat("San Jose city-wide median household income: $",
+    formatC(sj_city_median, format = "d", big.mark = ","), "\n\n")
+
+# get tract-level income for Santa Clara county with geometry
+sj_income_raw <- get_acs(geography = "tract", variables = "B19013_001",
+  state = "CA", county = "Santa Clara", geometry = TRUE, year = 2023) %>%
+  st_transform(crs = 3310) %>% rename(median_income = estimate)
+
+# rebuild San Jose school buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE)
+sj_buf <- school_coords %>% filter(City == "San Jose") %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+
+# calculate weighted average income within each 1-mile buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  intersection <- st_intersection(tracts, buf); if (nrow(intersection) == 0) return(NA_real_)
+  tract_areas   <- as.numeric(st_area(tracts))
+  overlap_areas <- as.numeric(st_area(intersection))
+  matched_areas <- tract_areas[match(intersection$GEOID, tracts$GEOID)]
+  proportions   <- pmin(overlap_areas / matched_areas, 1)
+  round(weighted.mean(intersection$median_income, proportions, na.rm = TRUE))
+}
+
+sj_buf$median_income <- vapply(seq_len(nrow(sj_buf)),
+  function(i) income_in_buffer(sj_buf[i, ], sj_income_raw), numeric(1))
+
+# pull tract-level race COUNTS with geometry (B03002 = Hispanic origin by race)
+sj_race_raw <- get_acs(geography = "tract",
+  variables = c(total="B03002_001", white="B03002_003", black="B03002_004",
+                amind="B03002_005", asian="B03002_006", pacisl="B03002_007",
+                hispanic="B03002_012"),
+  state = "CA", county = "Santa Clara",
+  geometry = TRUE, year = 2023, output = "wide") %>%
+  st_transform(crs = 3310)
+
+# weighted racial % within each 1-mile buffer (areal interpolation)
+race_in_buffer <- function(buf, race_sf) {
+  hits <- st_intersects(race_sf, buf, sparse = FALSE)[, 1]
+  tracts <- race_sf[hits, ]; if (nrow(tracts) == 0) return(rep(NA_real_, 7))
+  inter <- st_intersection(tracts, buf); if (nrow(inter) == 0) return(rep(NA_real_, 7))
+  ta <- as.numeric(st_area(tracts)); oa <- as.numeric(st_area(inter))
+  prop <- pmin(oa / ta[match(inter$GEOID, tracts$GEOID)], 1)
+  tot    <- sum(inter$totalE    * prop, na.rm = TRUE)
+  black  <- sum(inter$blackE    * prop, na.rm = TRUE)
+  hisp   <- sum(inter$hispanicE * prop, na.rm = TRUE)
+  white  <- sum(inter$whiteE    * prop, na.rm = TRUE)
+  asian  <- sum(inter$asianE    * prop, na.rm = TRUE)
+  amind  <- sum(inter$amindE    * prop, na.rm = TRUE)
+  pacisl <- sum(inter$pacislE   * prop, na.rm = TRUE)
+  other  <- tot - black - hisp - white - asian - amind - pacisl
+  if (tot == 0) return(rep(NA_real_, 7))
+  round(c(black, hisp, white, asian, amind, pacisl, other) / tot * 100, 1)
+}
+
+race_mat <- t(vapply(seq_len(nrow(sj_buf)),
+  function(i) race_in_buffer(sj_buf[i, ], sj_race_raw), numeric(7)))
+sj_buf$`% Black`            <- paste0(race_mat[, 1], "%")
+sj_buf$`% Hispanic`         <- paste0(race_mat[, 2], "%")
+sj_buf$`% White`            <- paste0(race_mat[, 3], "%")
+sj_buf$`% Asian`            <- paste0(race_mat[, 4], "%")
+sj_buf$`% Native American`  <- paste0(race_mat[, 5], "%")
+sj_buf$`% Pacific Islander` <- paste0(race_mat[, 6], "%")
+sj_buf$`% Other`            <- paste0(race_mat[, 7], "%")
+
+# join income + race onto existing sj_data
+sj_full <- sj_data %>%
+  left_join(sj_buf %>% st_drop_geometry() %>%
+    select(School, median_income, `% Black`, `% Hispanic`, `% White`,
+           `% Asian`, `% Native American`, `% Pacific Islander`, `% Other`),
+    by = "School") %>%
+  mutate(
+    `Buffer Income`   = paste0("$", formatC(median_income, format = "d", big.mark = ",")),
+    `vs. City Median` = ifelse(
+      (median_income - sj_city_median) >= 0,
+      paste0("+$", formatC(median_income - sj_city_median, format = "d", big.mark = ","), " above"),
+      paste0("-$", formatC(abs(median_income - sj_city_median), format = "d", big.mark = ","), " below"))
+  )
+
+# top 5 most at-risk
+cat("--- San Jose: Top 5 Most At-Risk ---\n")
+print(sj_full %>% arrange(desc(risk_score)) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`,
+         `% Black`, `% Hispanic`, `% White`, `% Asian`,
+         `% Native American`, `% Pacific Islander`, `% Other`))
+
+# top 5 least at-risk
+cat("\n--- San Jose: Top 5 Least At-Risk ---\n")
+print(sj_full %>% arrange(risk_score) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`,
+         `% Black`, `% Hispanic`, `% White`, `% Asian`,
+         `% Native American`, `% Pacific Islander`, `% Other`))
+```
+
+FOR STOCKTON: Analyzing Risk Scores vs. how the area's income compares to the city's median household income. Top 5 most at-risk and least at-risk schools are considered. Table displays shown.
+```{r STOCKTON - risk vs. income only tables, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus); library(sf); library(dplyr); library(readr)
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get Stockton city-wide median household income
+st_city_median <- get_acs(geography = "place", variables = "B19013_001",
+  state = "CA", year = 2023) %>%
+  filter(grepl("Stockton city", NAME)) %>% pull(estimate)
+cat("Stockton city-wide median household income: $",
+    formatC(st_city_median, format = "d", big.mark = ","), "\n\n")
+
+# get tract-level income for San Joaquin county with geometry
+st_income_raw <- get_acs(geography = "tract", variables = "B19013_001",
+  state = "CA", county = "San Joaquin", geometry = TRUE, year = 2023) %>%
+  st_transform(crs = 3310) %>% rename(median_income = estimate)
+
+# rebuild Stockton school buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE)
+st_buf <- school_coords %>% filter(City == "Stockton") %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+
+# calculate weighted average income within each 1-mile buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  intersection <- st_intersection(tracts, buf); if (nrow(intersection) == 0) return(NA_real_)
+  tract_areas   <- as.numeric(st_area(tracts))
+  overlap_areas <- as.numeric(st_area(intersection))
+  matched_areas <- tract_areas[match(intersection$GEOID, tracts$GEOID)]
+  proportions   <- pmin(overlap_areas / matched_areas, 1)
+  round(weighted.mean(intersection$median_income, proportions, na.rm = TRUE))
+}
+
+st_buf$median_income <- vapply(seq_len(nrow(st_buf)),
+  function(i) income_in_buffer(st_buf[i, ], st_income_raw), numeric(1))
+
+# join income onto existing st_data
+st_full <- st_data %>%
+  left_join(st_buf %>% st_drop_geometry() %>%
+    select(School, median_income),
+    by = "School") %>%
+  mutate(
+    `Buffer Income`   = paste0("$", formatC(median_income, format = "d", big.mark = ",")),
+    `vs. City Median` = ifelse(
+      (median_income - st_city_median) >= 0,
+      paste0("+$", formatC(median_income - st_city_median, format = "d", big.mark = ","), " above"),
+      paste0("-$", formatC(abs(median_income - st_city_median), format = "d", big.mark = ","), " below"))
+  )
+
+# top 5 most at-risk
+cat("--- Stockton: Top 5 Most At-Risk ---\n")
+print(st_full %>% arrange(desc(risk_score)) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`))
+
+# top 5 least at-risk
+cat("\n--- Stockton: Top 5 Least At-Risk ---\n")
+print(st_full %>% arrange(risk_score) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`))
+```
+
+FOR STOCKTON: Analyzing Risk Scores vs. how the area's income compares to the city's median household income WITH racial make-up also shown. Top 5 most at-risk and least at-risk schools are considered. Table displays shown.
+```{r ST -risk vs. income tables, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus); library(sf); library(dplyr); library(readr)
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get Stockton city-wide median household income
+st_city_median <- get_acs(geography = "place", variables = "B19013_001",
+  state = "CA", year = 2023) %>%
+  filter(grepl("Stockton city", NAME)) %>% pull(estimate)
+cat("Stockton city-wide median household income: $",
+    formatC(st_city_median, format = "d", big.mark = ","), "\n\n")
+
+# get tract-level income for San Joaquin county with geometry
+st_income_raw <- get_acs(geography = "tract", variables = "B19013_001",
+  state = "CA", county = "San Joaquin", geometry = TRUE, year = 2023) %>%
+  st_transform(crs = 3310) %>% rename(median_income = estimate)
+
+# rebuild Stockton school buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE)
+st_buf <- school_coords %>% filter(City == "Stockton") %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+
+# calculate weighted average income within each 1-mile buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  intersection <- st_intersection(tracts, buf); if (nrow(intersection) == 0) return(NA_real_)
+  tract_areas   <- as.numeric(st_area(tracts))
+  overlap_areas <- as.numeric(st_area(intersection))
+  matched_areas <- tract_areas[match(intersection$GEOID, tracts$GEOID)]
+  proportions   <- pmin(overlap_areas / matched_areas, 1)
+  round(weighted.mean(intersection$median_income, proportions, na.rm = TRUE))
+}
+
+st_buf$median_income <- vapply(seq_len(nrow(st_buf)),
+  function(i) income_in_buffer(st_buf[i, ], st_income_raw), numeric(1))
+
+# pull tract-level race COUNTS with geometry (B03002 = Hispanic origin by race)
+st_race_raw <- get_acs(geography = "tract",
+  variables = c(total="B03002_001", white="B03002_003", black="B03002_004",
+                amind="B03002_005", asian="B03002_006", pacisl="B03002_007",
+                hispanic="B03002_012"),
+  state = "CA", county = "San Joaquin",
+  geometry = TRUE, year = 2023, output = "wide") %>%
+  st_transform(crs = 3310)
+
+# weighted racial % within each 1-mile buffer (areal interpolation)
+race_in_buffer <- function(buf, race_sf) {
+  hits <- st_intersects(race_sf, buf, sparse = FALSE)[, 1]
+  tracts <- race_sf[hits, ]; if (nrow(tracts) == 0) return(rep(NA_real_, 7))
+  inter <- st_intersection(tracts, buf); if (nrow(inter) == 0) return(rep(NA_real_, 7))
+  ta <- as.numeric(st_area(tracts)); oa <- as.numeric(st_area(inter))
+  prop <- pmin(oa / ta[match(inter$GEOID, tracts$GEOID)], 1)
+  tot    <- sum(inter$totalE    * prop, na.rm = TRUE)
+  black  <- sum(inter$blackE    * prop, na.rm = TRUE)
+  hisp   <- sum(inter$hispanicE * prop, na.rm = TRUE)
+  white  <- sum(inter$whiteE    * prop, na.rm = TRUE)
+  asian  <- sum(inter$asianE    * prop, na.rm = TRUE)
+  amind  <- sum(inter$amindE    * prop, na.rm = TRUE)
+  pacisl <- sum(inter$pacislE   * prop, na.rm = TRUE)
+  other  <- tot - black - hisp - white - asian - amind - pacisl
+  if (tot == 0) return(rep(NA_real_, 7))
+  round(c(black, hisp, white, asian, amind, pacisl, other) / tot * 100, 1)
+}
+
+race_mat <- t(vapply(seq_len(nrow(st_buf)),
+  function(i) race_in_buffer(st_buf[i, ], st_race_raw), numeric(7)))
+st_buf$`% Black`            <- paste0(race_mat[, 1], "%")
+st_buf$`% Hispanic`         <- paste0(race_mat[, 2], "%")
+st_buf$`% White`            <- paste0(race_mat[, 3], "%")
+st_buf$`% Asian`            <- paste0(race_mat[, 4], "%")
+st_buf$`% Native American`  <- paste0(race_mat[, 5], "%")
+st_buf$`% Pacific Islander` <- paste0(race_mat[, 6], "%")
+st_buf$`% Other`            <- paste0(race_mat[, 7], "%")
+
+# join income + race onto existing st_data
+st_full <- st_data %>%
+  left_join(st_buf %>% st_drop_geometry() %>%
+    select(School, median_income, `% Black`, `% Hispanic`, `% White`,
+           `% Asian`, `% Native American`, `% Pacific Islander`, `% Other`),
+    by = "School") %>%
+  mutate(
+    `Buffer Income`   = paste0("$", formatC(median_income, format = "d", big.mark = ",")),
+    `vs. City Median` = ifelse(
+      (median_income - st_city_median) >= 0,
+      paste0("+$", formatC(median_income - st_city_median, format = "d", big.mark = ","), " above"),
+      paste0("-$", formatC(abs(median_income - st_city_median), format = "d", big.mark = ","), " below"))
+  )
+
+# top 5 most at-risk
+cat("--- Stockton: Top 5 Most At-Risk ---\n")
+print(st_full %>% arrange(desc(risk_score)) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`,
+         `% Black`, `% Hispanic`, `% White`, `% Asian`,
+         `% Native American`, `% Pacific Islander`, `% Other`))
+
+# top 5 least at-risk
+cat("\n--- Stockton: Top 5 Least At-Risk ---\n")
+print(st_full %>% arrange(risk_score) %>% head(5) %>%
+  select(School, `Risk Score` = risk_score, `Buffer Income`, `vs. City Median`,
+         `% Black`, `% Hispanic`, `% White`, `% Asian`,
+         `% Native American`, `% Pacific Islander`, `% Other`))
+```
+
+FOR SAN JOSE: Scatterplot CAASPP vs. Risk
+```{r SJ scatter CAASPP vs. Risk, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+
+# one point per San Jose school: risk score (x) vs. CAASPP % unsatisfactory (y)
+# drop schools missing a CAASPP score (e.g. suppressed data)
+sj_scatter <- sj_data %>%
+  filter(!is.na(caaspp_unsatisfactory))
+
+ggplot(sj_scatter, aes(x = risk_score, y = caaspp_unsatisfactory * 100)) +
+  geom_point(color = "steelblue", size = 3, alpha = 0.7) +
+  # add a linear line of best fit
+  geom_smooth(method = "lm", se = TRUE, color = "darkblue") +
+  labs(
+    title = "Risk Score vs. CAASPP Unsatisfactory Rate — San Jose Public High Schools",
+    x     = "Risk Score (0 = least risk, 1 = most risk)",
+    y     = "CAASPP % Unsatisfactory"
+  ) +
+  theme_minimal()
+```
+
+FOR SAN JOSE: Scatterplot Risk & CAASPP vs. Income
+```{r SJ scatter CAASPP & Risk vs. Income, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+library(tidyr)
+library(scales)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get tract-level income for Santa Clara county
+sj_income_raw <- get_acs(geography = "tract", variables = "B19013_001",
+  state = "CA", county = "Santa Clara", geometry = TRUE, year = 2023) %>%
+  st_transform(crs = 3310) %>% rename(median_income = estimate)
+
+# rebuild San Jose buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE) %>%
+  filter(City == "San Jose")
+sj_buf <- school_coords %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+
+# weighted average income within each buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  inter <- st_intersection(tracts, buf); if (nrow(inter) == 0) return(NA_real_)
+  ta <- as.numeric(st_area(tracts)); oa <- as.numeric(st_area(inter))
+  prop <- pmin(oa / ta[match(inter$GEOID, tracts$GEOID)], 1)
+  round(weighted.mean(inter$median_income, prop, na.rm = TRUE))
+}
+sj_buf$median_income <- vapply(seq_len(nrow(sj_buf)),
+  function(i) income_in_buffer(sj_buf[i, ], sj_income_raw), numeric(1))
+
+# join income to risk + CAASPP, drop schools missing CAASPP
+sj_scatter2 <- sj_data %>%
+  left_join(sj_buf %>% st_drop_geometry() %>% select(School, median_income), by = "School") %>%
+  filter(!is.na(caaspp_unsatisfactory), !is.na(median_income)) %>%
+  select(School, median_income,
+         `Risk Score` = risk_score,
+         `CAASPP Unsatisfactory` = caaspp_unsatisfactory) %>%
+  pivot_longer(cols = c(`Risk Score`, `CAASPP Unsatisfactory`),
+               names_to = "Outcome", values_to = "value")
+
+# plot both outcomes vs. income, each with its own colored best-fit line
+ggplot(sj_scatter2, aes(x = median_income, y = value, color = Outcome)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Risk Score" = "steelblue",
+                                "CAASPP Unsatisfactory" = "darkorange")) +
+  scale_x_continuous(labels = dollar_format()) +
+  labs(
+    title = "Risk Score & CAASPP Unsatisfactory vs. Median Household Income — San Jose",
+    x     = "Median Household Income (lowest to highest)",
+    y     = "Score (0.0 - 1.0)",
+    color = "Outcome Variable"
+  ) +
+  theme_minimal()
+```
+
+FOR STOCKTON: Scatterplot CAASPP vs. Risk
+```{r ST scatter CAASPP vs. Risk, echo = TRUE, eval = FALSE, message = FALSE} 
+library(ggplot2)
+library(dplyr)
+
+# one point per Stockton school: risk score (x) vs. CAASPP % unsatisfactory (y)
+# drop schools missing a CAASPP score (e.g. suppressed data)
+st_scatter <- st_data %>%
+  filter(!is.na(caaspp_unsatisfactory))
+
+ggplot(st_scatter, aes(x = risk_score, y = caaspp_unsatisfactory * 100)) +
+  geom_point(color = "darkorange", size = 3, alpha = 0.7) +
+  # add a linear line of best fit
+  geom_smooth(method = "lm", se = TRUE, color = "darkorange4") +
+  labs(
+    title = "Risk Score vs. CAASPP Unsatisfactory Rate — Stockton Public High Schools",
+    x     = "Risk Score (0 = least risk, 1 = most risk)",
+    y     = "CAASPP % Unsatisfactory"
+  ) +
+  theme_minimal()
+```
+
+FOR STOCKTON: Scatterplot Risk & CAASPP vs. Income
+```{r ST scatter CAASPP & Risk vs. Income, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+library(tidyr)
+library(scales)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# get tract-level income for San Joaquin county
+st_income_raw <- get_acs(geography = "tract", variables = "B19013_001",
+  state = "CA", county = "San Joaquin", geometry = TRUE, year = 2023) %>%
+  st_transform(crs = 3310) %>% rename(median_income = estimate)
+
+# rebuild Stockton buffers
+school_coords <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE) %>%
+  filter(City == "Stockton")
+st_buf <- school_coords %>%
+  st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+  st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+
+# weighted average income within each buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  inter <- st_intersection(tracts, buf); if (nrow(inter) == 0) return(NA_real_)
+  ta <- as.numeric(st_area(tracts)); oa <- as.numeric(st_area(inter))
+  prop <- pmin(oa / ta[match(inter$GEOID, tracts$GEOID)], 1)
+  round(weighted.mean(inter$median_income, prop, na.rm = TRUE))
+}
+st_buf$median_income <- vapply(seq_len(nrow(st_buf)),
+  function(i) income_in_buffer(st_buf[i, ], st_income_raw), numeric(1))
+
+# join income to risk + CAASPP, drop schools missing CAASPP, reshape to long format
+st_scatter2 <- st_data %>%
+  left_join(st_buf %>% st_drop_geometry() %>% select(School, median_income), by = "School") %>%
+  filter(!is.na(caaspp_unsatisfactory), !is.na(median_income)) %>%
+  select(School, median_income,
+         `Risk Score` = risk_score,
+         `CAASPP Unsatisfactory` = caaspp_unsatisfactory) %>%
+  pivot_longer(cols = c(`Risk Score`, `CAASPP Unsatisfactory`),
+               names_to = "Outcome", values_to = "value")
+
+# plot both outcomes vs income, each with its own colored best-fit line
+ggplot(st_scatter2, aes(x = median_income, y = value, color = Outcome)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Risk Score" = "steelblue",
+                                "CAASPP Unsatisfactory" = "darkorange")) +
+  scale_x_continuous(labels = dollar_format()) +
+  labs(
+    title = "Risk Score & CAASPP Unsatisfactory vs. Median Household Income — Stockton",
+    x     = "Median Household Income (lowest to highest)",
+    y     = "Score (0.0 - 1.0)",
+    color = "Outcome Variable"
+  ) +
+  theme_minimal()
+```
+
+FOR BOTH CITIES: Scatterplot CAASPP vs. Risk
+```{r both cities scatter CAASPP vs. Risk, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+
+# combine both cities (all 46 schools), drop schools missing CAASPP
+both_scatter <- all_data %>%
+  filter(!is.na(caaspp_unsatisfactory))
+
+ggplot(both_scatter, aes(x = risk_score, y = caaspp_unsatisfactory * 100)) +
+  # color the dots by city, but keep ONE shared best-fit line
+  geom_point(aes(color = City), size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "black") +
+  scale_color_manual(values = c("San Jose" = "steelblue",
+                                "Stockton" = "darkorange")) +
+  labs(
+    title = "Risk Score vs. CAASPP Unsatisfactory Rate — All 46 Public High Schools",
+    x     = "Risk Score (0 = least risk, 1 = most risk)",
+    y     = "CAASPP % Unsatisfactory",
+    color = "City"
+  ) +
+  theme_minimal()
+```
+
+Both cities: Linear regression model - CAASPP ~ Risk Score
+```{r CAASPP ~ Risk Score linear regression, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidymodels)
+
+# one row per school; drop schools missing a CAASPP score
+sj_reg  <- sj_data  %>% filter(!is.na(caaspp_unsatisfactory))
+st_reg  <- st_data  %>% filter(!is.na(caaspp_unsatisfactory))
+all_reg <- all_data %>% filter(!is.na(caaspp_unsatisfactory))
+
+# specify a linear regression model using the lm engine
+lm_model      <- linear_reg() %>% set_engine("lm")
+# fit metrics: rsq (closer to 1 = better fit) and rmse 
+model_metrics <- metric_set(rsq, rmse)
+
+# San Jose 
+cat("\n--- SAN JOSE: CAASPP ~ Risk Score (n =", nrow(sj_reg), ") ---\n")
+sj_fit <- lm_model %>% fit(caaspp_unsatisfactory ~ risk_score, data = sj_reg)
+sj_fit                                            # intercept + slope
+sj_fit %>%
+  predict(sj_reg) %>%
+  bind_cols(sj_reg %>% select(caaspp_unsatisfactory)) %>%
+  model_metrics(caaspp_unsatisfactory, .pred)     # rsq + rmse
+
+# Stockton
+cat("\n--- STOCKTON: CAASPP ~ Risk Score (n =", nrow(st_reg), ") ---\n")
+st_fit <- lm_model %>% fit(caaspp_unsatisfactory ~ risk_score, data = st_reg)
+st_fit
+st_fit %>%
+  predict(st_reg) %>%
+  bind_cols(st_reg %>% select(caaspp_unsatisfactory)) %>%
+  model_metrics(caaspp_unsatisfactory, .pred)
+
+# both
+cat("\n--- BOTH CITIES: CAASPP ~ Risk Score (n =", nrow(all_reg), ") ---\n")
+all_fit <- lm_model %>% fit(caaspp_unsatisfactory ~ risk_score, data = all_reg)
+all_fit
+all_fit %>%
+  predict(all_reg) %>%
+  bind_cols(all_reg %>% select(caaspp_unsatisfactory)) %>%
+  model_metrics(caaspp_unsatisfactory, .pred)
+```
+
+Both cities: Linear regression model - CAASPP ~ MAI & TSI
+```{r CAASPP ~ MAI & TSI linear regression, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidymodels)
+
+# one row per school; drop schools missing a CAASPP score
+sj_reg  <- sj_data  %>% filter(!is.na(caaspp_unsatisfactory))
+st_reg  <- st_data  %>% filter(!is.na(caaspp_unsatisfactory))
+all_reg <- all_data %>% filter(!is.na(caaspp_unsatisfactory))
+
+# specify a linear regression model using the lm engine 
+lm_model      <- linear_reg() %>% set_engine("lm")
+# fit metrics: rsq (closer to 1 = better fit) and rmse 
+model_metrics <- metric_set(rsq, rmse)
+
+# San Jose 
+cat("\n--- SAN JOSE: CAASPP ~ MAI + TSI (n =", nrow(sj_reg), ") ---\n")
+sj_fit2 <- lm_model %>%
+  fit(caaspp_unsatisfactory ~ mobility_access_index + transportation_safety_index,
+      data = sj_reg)
+sj_fit2                                           # intercept + two slopes
+sj_fit2 %>%
+  predict(sj_reg) %>%
+  bind_cols(sj_reg %>% select(caaspp_unsatisfactory)) %>%
+  model_metrics(caaspp_unsatisfactory, .pred)     # rsq + rmse
+
+# Stockton
+cat("\n--- STOCKTON: CAASPP ~ MAI + TSI (n =", nrow(st_reg), ") ---\n")
+st_fit2 <- lm_model %>%
+  fit(caaspp_unsatisfactory ~ mobility_access_index + transportation_safety_index,
+      data = st_reg)
+st_fit2
+st_fit2 %>%
+  predict(st_reg) %>%
+  bind_cols(st_reg %>% select(caaspp_unsatisfactory)) %>%
+  model_metrics(caaspp_unsatisfactory, .pred)
+
+# both cities
+cat("\n--- BOTH CITIES: CAASPP ~ MAI + TSI (n =", nrow(all_reg), ") ---\n")
+all_fit2 <- lm_model %>%
+  fit(caaspp_unsatisfactory ~ mobility_access_index + transportation_safety_index,
+      data = all_reg)
+all_fit2
+all_fit2 %>%
+  predict(all_reg) %>%
+  bind_cols(all_reg %>% select(caaspp_unsatisfactory)) %>%
+  model_metrics(caaspp_unsatisfactory, .pred)
+```
+
+Both cities: Linear regression model - Risk ~ Income
+```{r Risk ~ Income linear regression, echo = TRUE, eval = FALSE, message = FALSE}
+library(tidycensus)
+library(sf)
+library(dplyr)
+library(readr)
+library(tidymodels)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+census_api_key("1aa7f6027937ad760c000edaceb8770891050792")
+
+# area-weighted median income within one 1-mile buffer
+income_in_buffer <- function(buf, income_sf) {
+  hits <- st_intersects(income_sf, buf, sparse = FALSE)[, 1]
+  tracts <- income_sf[hits, ]; if (nrow(tracts) == 0) return(NA_real_)
+  inter <- st_intersection(tracts, buf); if (nrow(inter) == 0) return(NA_real_)
+  ta <- as.numeric(st_area(tracts)); oa <- as.numeric(st_area(inter))
+  prop <- pmin(oa / ta[match(inter$GEOID, tracts$GEOID)], 1)
+  round(weighted.mean(inter$median_income, prop, na.rm = TRUE))
+}
+
+# get buffer income for one city
+buffer_income <- function(city, county) {
+  inc <- get_acs(geography = "tract", variables = "B19013_001",
+                 state = "CA", county = county, geometry = TRUE, year = 2023) %>%
+    st_transform(crs = 3310) %>% rename(median_income = estimate)
+  buf <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE) %>%
+    filter(City == city) %>%
+    st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+    st_transform(crs = 3310) %>% st_buffer(dist = 1609.34)
+  buf$median_income <- vapply(seq_len(nrow(buf)),
+    function(i) income_in_buffer(buf[i, ], inc), numeric(1))
+  buf %>% st_drop_geometry() %>% select(School, median_income)
+}
+
+sj_inc <- buffer_income("San Jose", "Santa Clara")
+st_inc <- buffer_income("Stockton", "San Joaquin")
+
+# join income onto risk scores; income in dollars
+sj_risk_inc <- sj_data %>% left_join(sj_inc, by = "School") %>% filter(!is.na(median_income))
+st_risk_inc <- st_data %>% left_join(st_inc, by = "School") %>% filter(!is.na(median_income))
+
+# linear regression model using the lm engine 
+lm_model      <- linear_reg() %>% set_engine("lm")
+# fit metrics: rsq (closer to 1 = better fit) and rmse (Lecture 7)
+model_metrics <- metric_set(rsq, rmse)
+
+# SJ
+cat("\n--- SAN JOSE: Risk Score ~ Median Income (n =", nrow(sj_risk_inc), ") ---\n")
+sj_fit4 <- lm_model %>% fit(risk_score ~ median_income, data = sj_risk_inc)
+sj_fit4                                           # intercept + slope (per $1)
+sj_fit4 %>%
+  predict(sj_risk_inc) %>%
+  bind_cols(sj_risk_inc %>% select(risk_score)) %>%
+  model_metrics(risk_score, .pred)                # rsq + rmse
+
+# Stockton 
+cat("\n--- STOCKTON: Risk Score ~ Median Income (n =", nrow(st_risk_inc), ") ---\n")
+st_fit4 <- lm_model %>% fit(risk_score ~ median_income, data = st_risk_inc)
+st_fit4
+st_fit4 %>%
+  predict(st_risk_inc) %>%
+  bind_cols(st_risk_inc %>% select(risk_score)) %>%
+  model_metrics(risk_score, .pred)
+```
+
+Scatterplot ~ Risk vs. Income
+```{r scatterplot risk ~ income, echo = TRUE, eval = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+library(scales)
+
+# NOTE: run the "Risk ~ Income linear regression" chunk above first
+
+# combine both cities into one table for plotting
+risk_income <- bind_rows(sj_risk_inc, st_risk_inc)
+
+# one point per school: buffer median household income (x) vs. Risk Score (y),
+# with a linear best-fit line and shaded confidence band (se = TRUE), one per city
+ggplot(risk_income, aes(x = median_income, y = risk_score, color = City)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE) +
+  scale_color_manual(values = c("San Jose" = "steelblue",
+                                "Stockton" = "darkorange")) +
+  scale_x_continuous(labels = dollar_format()) +
+  labs(
+    title    = "Risk Score vs. Median Household Income — Public High Schools",
+    subtitle = "Each point = one school's 1-mile buffer; line = linear regression fit",
+    x        = "Buffer Median Household Income",
+    y        = "Risk Score (0 = least risk, 1 = most risk)",
+    color    = "City",
+    caption  = "San Jose R-squared = 0.35  |  Stockton R-squared = 0.17  |  Source: 2019-2023 ACS"
+  ) +
+  theme_minimal()
+```
