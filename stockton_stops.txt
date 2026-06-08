@@ -1,0 +1,871 @@
+stop_id,stop_code,stop_name,tts_stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,stop_timezone,wheelchair_boarding
+7014,7014,SJ County Hospital,San Joaquin County Hospital,SJ CNTY HOSPITAL,37.8866303,-121.2809726,0.0,,,,,0
+3073,3073,El Dorado & Hospital Northbound,El Dorado And Hospital North Bound,,37.8861896,-121.2763253,0.0,,,,,0
+3074,3074,El Dorado & French Camp Northbound,El Dorado And French Camp North Bound,,37.8893015,-121.2763018,0.0,,,,,0
+3075,3075,El Dorado & 4554 S El Dorado Northbound,El Dorado And 4554 S El Dorado North Bound,EL DORADO ST & 5544 EL DORADO ST,37.8974071,-121.2756846,0.0,,,,,0
+3076,3076,El Dorado & Western Lumber Northbound,El Dorado And Western Lumber North Bound,EL DORADO ST & WESTERN LUMBER,37.9073221,-121.2755971,0.0,,,,,0
+3077,3077,Clayton & Harvey Westbound,Clayton And Harvey West Bound,,37.9109958,-121.2772455,0.0,,,,,0
+7026,7026,Clayton & Odell Westbound,Clayton And Odell West Bound,,37.9102813,-121.27992,,,,,,0
+3080,3080,Odell & Horton Northbound,Odell And Horton North Bound,,37.9214031,-121.2848423,,,,,,0
+3082,3082,Mosswood & El Dorado Northbound,Mosswood And El Dorado North Bound,,37.9242661,-121.2814756,0.0,,,,,0
+3083,3083,El Dorado & 9Th Northbound,El Dorado And 9Th North Bound,,37.9269246,-121.2818468,0.0,,,,,0
+3119,3119,8Th & San Joaquin Westbound,8Th And San Joaquin West Bound,,37.9292481,-121.2809548,0.0,,,,,0
+3085,3085,San Joaquin & 6Th Northbound,San Joaquin And 6Th North Bound,,37.9317478,-121.2812813,0.0,,,,,0
+3086,3086,San Joaquin & 4Th Northbound,San Joaquin And 4Th North Bound,,37.934529,-121.2820308,0.0,,,,,0
+3087,3087,San Joaquin & 2Nd Northbound,San Joaquin And 2Nd North Bound,,37.9367463,-121.2826433,0.0,,,,,0
+7027,7027,San Joaquin & Clay Northbound,San Joaquin And Clay North Bound,,37.9408114,-121.2837388,,,,,,0
+3088,3088,San Joaquin & Anderson Northbound,San Joaquin And Anderson North Bound,,37.9431343,-121.284369,0.0,,,,,0
+3090,3090,San Joaquin & Hazelton Northbound,San Joaquin And Hazelton North Bound,,37.9474766,-121.2855458,0.0,,,,,0
+3091,3091,Alvarado & Alpine Northbound,Alvarado And Alpine North Bound,,37.9837323,-121.2896081,0.0,,,,,0
+3092,3092,Alvarado & Fulton Northbound,Alvarado And Fulton North Bound,,37.9854678,-121.2903323,0.0,,,,,0
+3093,3093,Fulton @ 517 Fulton Westbound,Fulton At 517 Fulton West Bound,,37.984782,-121.2940675,0.0,,,,,0
+3094,3094,Fulton & Sutter Westbound,Fulton And Sutter West Bound,,37.9844125,-121.2965089,0.0,,,,,0
+3095,3095,Essex & Sutter Westbound,Essex And Sutter West Bound,,37.9881533,-121.2985538,0.0,,,,,0
+7028,7028,Essex & El Dorado Westbound,Essex And El Dorado West Bound,,37.9873105,-121.3018613,0.0,,,,,0
+3096,3096,Jamestown & Shelley Eastbound,Jamestown And Shelley East Bound,,37.9937573,-121.3036031,0.0,,,,,0
+3100,3100,Claremont & Gold Run Northbound,Claremont And Gold Run North Bound,,37.9918563,-121.3060806,0.0,,,,,0
+3101,3101,Claremont & Pardee Northbound,Claremont And Pardee North Bound,,37.9935258,-121.308054,0.0,,,,,0
+3448,3448,Pacific & Longview Southbound,Pacific And Longview South Bound,,38.0029963,-121.3175226,0.0,,,,,0
+3840,3840,Pacific & Swain Northbound,Pacific And Swain North Bound,,38.004844,-121.3179856,0.0,,,,,0
+7067,7067,Pacific & Benjamin Holt Southbound,Pacific And Benjamin Holt South Bound,,38.0099475,-121.3203456,0.0,,,,,0
+3842,3842,Pacific & Lincoln Northbound,Pacific And Lincoln North Bound,,38.0135273,-121.3214818,0.0,,,,,0
+3463,3463,Ponce De Leon & Lower Sacramento Westbound,Ponce De Leon And Lower Sacramento West Bound,PONCE DE LEON & LOWER SACRAMENTO RD,38.0300313,-121.3215963,0.0,,,,,0
+3334,3334,Yokuts & El Dorado Westbound,Yokuts And El Dorado West Bound,W YOKUTS AV & N EL DORADO STREET FRONTAGE RD W,37.9987221,-121.3063196,0.0,,,,,0
+3456,3456,Inglewood & Benjamin Holt Northbound,Inglewood And Benjamin Holt North Bound,,38.0118605,-121.316776,0.0,,,,,0
+3459,3459,El Dorado & Mission Park Northbound,El Dorado And Mission Park North Bound,,38.0193462,-121.3148219,0.0,,,,,0
+3461,3461,El Dorado & Martinique Northbound,El Dorado And Martinique North Bound,,38.0289026,-121.3161636,0.0,,,,,0
+3462,3462,Ponce De Leon & Antoino Westbound,Ponce De Leon And Antoino West Bound,PONCE DE LEON AVE & ANTONIO WY,38.0301505,-121.3190398,0.0,,,,,0
+3477,3477,Hickock & Pawnee Northbound,Hickock And Pawnee North Bound,,38.0382006,-121.3359175,0.0,,,,,0
+3478,3478,Hickock & Cheyenne Northbound,Hickock And Cheyenne North Bound,,38.0400723,-121.3350138,0.0,,,,,0
+3485,3485,Davis & Laramie Southbound,Davis And Laramie South Bound,,38.0384338,-121.3319755,0.0,,,,,0
+3490,3490,El Dorado & Glencannon Southbound,El Dorado And Glencannon South Bound,,38.0264543,-121.3163728,0.0,,,,,0
+3455,3455,Inglewood & Glendora Northbound,Inglewood And Glendora North Bound,,38.0087856,-121.3154137,0.0,,,,,0
+3512,3512,El Dorado & Swain Southbound,El Dorado And Swain South Bound,,38.0068816,-121.3085283,0.0,,,,,0
+3470,3470,Yokuts & El Dorado Eastbound,Yokuts And El Dorado East Bound,,37.9983833,-121.3070026,0.0,,,,,0
+3851,3851,Pacific & Willora Southbound,Pacific And Willora South Bound,,38.0156758,-121.322571,0.0,,,,,0
+3823,3823,Pacific & Lincoln Southbound,Pacific And Lincoln South Bound,PACIFIC AVE & LINCOLN RD,38.0134533,-121.3217281,0.0,,,,,0
+7065,7065,Pacific & Benjamin Holt Northbound,Pacific And Benjamin Holt North Bound,,38.0113661,-121.3205953,0.0,,,,,0
+3884,3884,Pacific & Douglas Southbound,Pacific And Douglas South Bound,,38.0081316,-121.3192775,0.0,,,,,0
+3885,3885,Pacific & Swain Southbound,Pacific And Swain South Bound,,38.0048068,-121.3182635,0.0,,,,,0
+3104,3104,El Dorado & Jamestown Southbound,El Dorado And Jamestown South Bound,,37.9925903,-121.30452,0.0,,,,,0
+3106,3106,Sutter & Fulton Southbound,Sutter And Fulton South Bound,,37.9845098,-121.2969071,0.0,,,,,0
+3107,3107,Fulton @ 571 Fulton Eastbound,Fulton At 571 Fulton East Bound,,37.9846588,-121.2943086,0.0,,,,,0
+3108,3108,Fulton & Stanislaus Eastbound,Fulton And Stanislaus East Bound,,37.9852003,-121.2921623,0.0,,,,,0
+3109,3109,Alvarado & Oak Park Southbound,Alvarado And Oak Park South Bound,,37.9845533,-121.290062,0.0,,,,,0
+3110,3110,Alvarado & Alpine Southbound,Alvarado And Alpine South Bound,,37.9833525,-121.2895731,0.0,,,,,0
+3111,3111,California & Walnut Southbound,California And Walnut South Bound,,37.9698341,-121.2890861,0.0,,,,,0
+3112,3112,San Joaquin & Lafayette Southbound,San Joaquin And Lafayette South Bound,,37.950428,-121.2865675,0.0,,,,,0
+3113,3113,San Joaquin & Hazelton Southbound,San Joaquin And Hazelton South Bound,,37.9475701,-121.2857751,0.0,,,,,0
+7029,7029,San Joaquin & Taylor Northbound,San Joaquin And Taylor North Bound,,37.945029,-121.2848846,0.0,,,,,0
+3114,3114,San Joaquin & Anderson Southbound,San Joaquin And Anderson South Bound,,37.9434156,-121.2846401,0.0,,,,,0
+3115,3115,San Joaquin & Jackson Southbound,San Joaquin And Jackson South Bound,,37.9408831,-121.2839531,0.0,,,,,0
+7033,7033,San Joaquin & Martin Luther King Southbound,San Joaquin And Mlk South Bound,,37.939127,-121.2834655,,,,,,0
+3116,3116,San Joaquin & 2Nd Southbound,San Joaquin And 2Nd South Bound,,37.9369538,-121.2828473,0.0,,,,,0
+3117,3117,San Joaquin & 4Th Southbound,San Joaquin And 4Th South Bound,,37.9341423,-121.2820606,0.0,,,,,0
+3118,3118,San Joaquin & 6Th Southbound,San Joaquin And 6Th South Bound,,37.9319821,-121.281502,0.0,,,,,0
+3120,3120,El Dorado & 9Th Southbound,El Dorado And 9Th South Bound,,37.9271321,-121.2821935,0.0,,,,,0
+3121,3121,El Dorado & Mosswood Southbound,El Dorado And Mosswood South Bound,,37.924771,-121.2812361,,,,,,0
+3122,3122,Mosswood & Commerce Eastbound,Mosswood And Commerce East Bound,,37.9240278,-121.2827721,0.0,,,,,0
+3123,3123,Odell & Mosswood Southbound,Odell And Mosswood South Bound,,37.9231638,-121.2855406,0.0,,,,,0
+3124,3124,Odell & Horton Southbound,Odell And Horton South Bound,,37.9207391,-121.2845576,0.0,,,,,0
+3125,3125,Odell & Ivy Southbound,Odell And Ivy South Bound,,37.9178726,-121.2833674,0.0,,,,,0
+7034,7034,Clayton & Odell Eastbound,Clayton And Odell East Bound,,37.9101663,-121.2799813,,,,,,0
+3130,3130,El Dorado & French Camp Southbound,El Dorado And French Camp South Bound,,37.8907545,-121.2764736,0.0,,,,,0
+3131,3131,Hospital & El Dorado Westbound,Hospital And El Dorado West Bound,,37.8858843,-121.2771481,0.0,,,,,0
+3869,3869,Carolyn Weston & Ews Woods Westbound,Carolyn Weston And Ews Woods West Bound,CAROLYN WESTON BLVD & E.W.S. WOODS BLVD,37.9116496,-121.3056566,0.0,,,,,0
+3855,3855,Church & San Jose Eastbound,Church And San Jose East Bound,,37.9451619,-121.303904,0.0,,,,,0
+7037,7037,Lincoln & Weber Northbound,Lincoln And Weber North Bound,LINCOLN ST & WEBER AVE,37.9517646,-121.2976278,0.0,,,,,0
+3698,3698,Market & Airport Eastbound,Market And Airport East Bound,MARKET ST & AIRPORT WY,37.954374,-121.2736036,0.0,,,,,0
+3699,3699,Market & Della Eastbound,Market And Della East Bound,,37.9551881,-121.2688458,,,,,,0
+3700,3700,Main & Laurel Eastbound,Main And Laurel East Bound,MAIN ST & LAUREL ST,37.9553228,-121.2625828,,,,,,0
+3701,3701,Main & Court Eastbound,Main And Court East Bound,,37.9551663,-121.2595588,0.0,,,,,0
+3702,3702,Main & Marsh Eastbound,Main And Marsh East Bound,,37.9550563,-121.257318,,,,,,0
+3704,3704,Main & Golden Gate Eastbound,Main And Golden Gate East Bound,,37.9543728,-121.2441291,,,,,,0
+3705,3705,Main & Netherton Eastbound,Main And Netherton East Bound,,37.9542921,-121.2423838,,,,,,0
+3706,3706,Main & Anteros Eastbound,Main And Anteros East Bound,,37.9540251,-121.2372506,,,,,,0
+3707,3707,Oro & Horner Northbound,Oro And Horner North Bound,,37.9576118,-121.2357741,,,,,,0
+3708,3708,Oro & Washington Northbound,Oro And Washington North Bound,,37.9622751,-121.237571,,,,,,0
+3684,3684,Main & Netherton Westbound,Main And Netherton West Bound,,37.9544403,-121.2421156,,,,,,0
+3685,3685,Main & Golden Gate Westbound,Main And Golden Gate West Bound,,37.9545773,-121.2449718,,,,,,0
+7149,7149,Main & Filbert Westbound,Main And Filbert West Bound,,37.9549371,-121.2522708,,,,,,0
+3687,3687,Main & E Westbound,Main And E West Bound,,37.955187,-121.2570298,0.0,,,,,0
+3689,3689,Main & Lafayette Westbound,Main And Lafayette West Bound,,37.9553875,-121.261158,,,,,,0
+3690,3690,Main & Della Westbound,Main And Della West Bound,,37.9557646,-121.2685503,,,,,,0
+3691,3691,Main & Sierra Nevada Westbound,Main And Sierra Nevada West Bound,,37.9557095,-121.2730996,,,,,,0
+3861,3861,Weber & Tuleburg Westbound,Weber And Tuleburg West Bound,,37.9529278,-121.2951,0.0,,,,,0
+3863,3863,Church & San Jose Westbound,Church And San Jose West Bound,,37.9453058,-121.3035458,0.0,,,,,0
+3854,3854,Church & Pershing Eastbound,Church And Pershing East Bound,CHURCH ST & PERSHING AVE,37.9449653,-121.3077651,0.0,,,,,0
+7248,7248,Los Angeles & Sonora Southbound,Los Angeles And Sonora South Bound,,37.9430643,-121.3147748,,,,,,0
+7045,7045,Alpine & Delaware Eastbound,Alpine And Delaware East Bound,,37.971663,-121.3323823,,,,,,0
+3608,3608,Stanislaus & Weber Southbound,Stanislaus And Weber South Bound,,37.9548323,-121.2822846,,,,,,0
+7042,7042,Country Club & Pershing Westbound,Country Club And Pershing West Bound,,37.9694411,-121.3154788,0.0,,,,,0
+3339,3339,Wilson & Park (Eastland Plz) Northbound,Wilson And Park (Eastland Plz) North Bound,,37.9631281,-121.2734713,0.0,,,,,0
+3340,3340,Wilson & Poplar Northbound,Wilson And Poplar North Bound,,37.9645456,-121.2738765,0.0,,,,,0
+3341,3341,Wilson & Roosevelt Northbound,Wilson And Roosevelt North Bound,,37.9671618,-121.2745421,0.0,,,,,0
+7088,7088,Wilson & Harding Northbound,Wilson And Harding North Bound,,37.9712373,-121.2756646,0.0,,,,,0
+3345,3345,Funston & Orwood Northbound,Funston And Orwood North Bound,,37.976442,-121.2736581,0.0,,,,,0
+3346,3346,Funston & Sanguinetti Eastbound,Funston And Sanguinetti East Bound,,37.9813551,-121.2708666,0.0,,,,,0
+3349,3349,Filbert & Waterloo Southbound,Filbert And Waterloo South Bound,,37.9763681,-121.2612736,0.0,,,,,0
+3351,3351,Golden Gate & John Northbound,Golden Gate And John North Bound,,37.9770011,-121.2552473,0.0,,,,,0
+3352,3352,Waterloo & Sunset Westbound,Waterloo And Sunset West Bound,,37.9788376,-121.2592036,0.0,,,,,0
+3365,3365,Funston & Orwood Southbound,Funston And Orwood South Bound,,37.9769261,-121.2735241,0.0,,,,,0
+3344,3344,Funston & Bradford Northbound,Funston And Bradford North Bound,,37.9745341,-121.2744603,0.0,,,,,0
+3343,3343,Bradford & Wilson Eastbound,Bradford And Wilson East Bound,,37.9738821,-121.2758588,0.0,,,,,0
+7097,7097,Wilson & Harding Southbound,Wilson And Harding South Bound,,37.9705425,-121.2755397,0.0,,,,,0
+3367,3367,Wilson & Acacia Southbound,Wilson And Acacia South Bound,,37.9655283,-121.2742688,0.0,,,,,0
+3368,3368,Wilson & Oak Southbound,Wilson And Oak South Bound,,37.9619111,-121.2733493,0.0,,,,,0
+3338,3338,Stanislaus & Miner Northbound,Stanislaus And Miner North Bound,,37.9568296,-121.2826346,0.0,,,,,0
+7054,7054,Country Club & Pershing Eastbound,Country Club And Pershing East Bound,,37.9692221,-121.3158015,0.0,,,,,0
+7128,7128,8Th & B Eastbound,8Th And B East Bound,8TH ST & B ST,37.9339456,-121.2549458,0.0,,,,,0
+3550,3550,Stanislaus & Lafayette Northbound,Stanislaus And Lafayette North Bound,,37.9509993,-121.2810933,0.0,,,,,0
+3552,3552,Stanislaus & Main Northbound,Stanislaus And Main North Bound,,37.953722,-121.2818171,0.0,,,,,0
+3555,3555,El Dorado & Fremont Northbound,El Dorado And Fremont North Bound,,37.9577509,-121.2910916,0.0,,,,,0
+3558,3558,El Dorado & Acacia Northbound,El Dorado And Acacia North Bound,,37.96295,-121.2924981,0.0,,,,,0
+3559,3559,El Dorado & Willow Northbound,El Dorado And Willow North Bound,,37.9663763,-121.2934258,0.0,,,,,0
+7130,7130,El Dorado & Sperry Northbound,El Dorado And Sperry North Bound,,37.9684818,-121.2941128,,,,,,0
+3561,3561,El Dorado & Adams Northbound,El Dorado And Adams North Bound,,37.9740596,-121.2965226,0.0,,,,,0
+3563,3563,El Dorado & Alpine Northbound,El Dorado And Alpine North Bound,,37.9805621,-121.2994241,0.0,,,,,0
+3564,3564,El Dorado & Fulton Northbound,El Dorado And Fulton North Bound,EL DORADO ST & FULTON ST,37.9831938,-121.3004886,0.0,,,,,0
+3598,3598,El Dorado & Churchill Southbound,El Dorado And Churchill South Bound,,37.985838,-121.301699,,,,,,0
+3570,3570,El Dorado & Lincoln Northbound,El Dorado And Lincoln North Bound,,38.016734,-121.3122611,,,,,,0
+4031,4031,Hammer & Lan Ark Westbound,Hammer And Lan Ark West Bound,,38.0210393,-121.3098525,0.0,,,,,0
+3574,3574,Knickerbocker & Palisades Eastbound,Knickerbocker And Palisades East Bound,,38.0232423,-121.2983766,,,,,,0
+7131,7131,Knickerbocker & West Lane Eastbound,Knickerbocker And West Lane East Bound,,38.0242061,-121.2943883,,,,,,0
+3576,3576,Bordeaux & Moulin Eastbound,Bordeaux And Moulin East Bound,,38.0237299,-121.2909903,,,,,,0
+3577,3577,Bordeaux & Chateau Eastbound,Bordeaux And Chateau East Bound,,38.0237479,-121.2890328,,,,,,0
+3579,3579,Bordeaux & Burgundy Eastbound,Bordeaux And Burgundy East Bound,,38.0242066,-121.2838883,,,,,,0
+3580,3580,Burgundy & Cherbourg Northbound,Burgundy And Cherbourg North Bound,,38.0253973,-121.2833674,,,,,,0
+7132,7132,Cherbourg & Pyreness Northbound,Cherbourg And Pyreness North Bound,,38.0281399,-121.285315,,,,,,0
+3581,3581,Cherbourg & Sandalwood Northbound,Cherbourg And Sandalwood North Bound,,38.0320483,-121.2859145,,,,,,0
+3589,3589,West Lane @ Christian Center Northbound,West Lane At Christian Center North Bound,,38.0299871,-121.2952908,0.0,,,,,0
+7133,7133,Prospector & Tam O'Shanter Westbound,Prospector And Tam O'Shanter West Bound,PROSPECTOR DR & TAM O'SHANTER DR,38.0326053,-121.3005275,0.0,,,,,0
+4030,4030,Hammer & Tam O`Shanter Westbound,Hammer And Tam O`Shanter West Bound,,38.0211086,-121.3009801,0.0,,,,,0
+3572,3572,Iris & Lan Ark Eastbound,Iris And Lan Ark East Bound,,38.022192,-121.3099099,0.0,,,,,0
+3599,3599,El Dorado & Fulton Southbound,El Dorado And Fulton South Bound,,37.9829365,-121.3005643,,,,,,0
+3601,3601,El Dorado & Noble Southbound,El Dorado And Noble South Bound,,37.9761693,-121.2978718,,,,,,0
+3602,3602,El Dorado & Castle Southbound,El Dorado And Castle South Bound,,37.9743191,-121.2969568,,,,,,0
+7134,7134,Center & Harding Southbound,Center And Harding South Bound,,37.9670633,-121.2951515,0.0,,,,,0
+3603,3603,Center & Acacia Southbound,Center And Acacia South Bound,,37.9625328,-121.2939105,0.0,,,,,0
+3604,3604,Center & Flora Southbound,Center And Flora South Bound,,37.9605688,-121.2933691,0.0,,,,,0
+3610,3610,Stanislaus & Lafayette Southbound,Stanislaus And Lafayette South Bound,,37.9508548,-121.2811953,,,,,,0
+3611,3611,Stanislaus & Worth Southbound,Stanislaus And Worth South Bound,,37.9452141,-121.2796753,,,,,,0
+7135,7135,Ralph & Airport Eastbound,Ralph And Airport East Bound,RALPH AVE & AIRPORT WY,37.9202728,-121.2621683,,,,,,0
+3617,3617,Ralph & Anne Eastbound,Ralph And Anne East Bound,,37.9214019,-121.2576785,,,,,,0
+3901,3901,Ralph & Zamora Westbound,Ralph And Zamora West Bound,RALPH AVE & ZAMORA WY,37.9221736,-121.2553546,,,,,,0
+3619,3619,B & Ralph Northbound,B And Ralph North Bound,,37.9233053,-121.251071,,,,,,0
+3406,3406,8Th & Laguna Eastbound,8Th And Laguna East Bound,,37.9265615,-121.3065276,0.0,,,,,0
+7104,7104,8Th & Argonaut Westbound,8Th And Argonaut West Bound,,37.926719,-121.3032136,0.0,,,,,0
+7015,7015,Manthey & 8Th Northbound,Manthey And 8Th North Bound,,37.9255071,-121.2954638,,,,,,0
+3135,3135,Lincoln & 7Th Northbound,Lincoln And 7Th North Bound,,37.9285381,-121.2903645,0.0,,,,,0
+3136,3136,Lincoln & Kohler Northbound,Lincoln And Kohler North Bound,,37.9309245,-121.2916605,0.0,,,,,0
+3137,3137,Lincoln & 4Th Northbound,Lincoln And 4Th North Bound,,37.9321483,-121.2920793,0.0,,,,,0
+3138,3138,Lincoln & French Camp Northbound,Lincoln And French Camp North Bound,,37.9345766,-121.2929066,0.0,,,,,0
+7035,7035,Lincoln & Charter Northbound,Lincoln And Charter North Bound,,37.9378131,-121.2938251,0.0,,,,,0
+3139,3139,Lincoln & Jackson Northbound,Lincoln And Jackson North Bound,,37.9394163,-121.2942771,0.0,,,,,0
+3411,3411,Pacific & Robinhood Northbound,Pacific And Robinhood North Bound,,38.0004071,-121.3161841,0.0,,,,,0
+7106,7106,Swain & Pershing Westbound,Swain And Pershing West Bound,,38.002185,-121.3281213,0.0,,,,,0
+3767,3767,Pershing & Buckingham Northbound,Pershing And Buckingham North Bound,,37.9999751,-121.3260138,0.0,,,,,0
+3502,3502,Swain & Halleck Westbound,Swain And Halleck West Bound,,38.0005418,-121.3551878,0.0,,,,,0
+3503,3503,Cumberland & Swain Northbound,Cumberland And Swain North Bound,,37.9999786,-121.3581613,0.0,,,,,0
+3504,3504,Cumberland & Monitor Northbound,Cumberland And Monitor North Bound,CUMBERLAND PL & MONITOR CI S,38.0013278,-121.3595371,0.0,,,,,0
+3505,3505,Cumberland & Harpers Ferry Northbound,Cumberland And Harpers Ferry North Bound,,38.0033825,-121.3609895,0.0,,,,,0
+3449,3449,Mill Springs & Cumberland Eastbound,Mill Springs And Cumberland East Bound,,38.0083356,-121.3628528,0.0,,,,,0
+3452,3452,Ben Holt & Grigsby Eastbound,Ben Holt And Grigsby East Bound,BENJAMIN HOLT & GRIGSBY NS/EB,38.0047708,-121.3531881,0.0,,,,,0
+3789,3789,Meadow & Parkwoods Southbound,Meadow And Parkwoods South Bound,MEADOW & PARKWOODS NS SB & PARKWOODS DR,38.0169043,-121.3417638,,,,,,0
+3790,3790,Meadow & Alexandria Southbound,Meadow And Alexandria South Bound,,38.0161251,-121.3395838,,,,,,0
+3791,3791,Meadow & Larkspur Southbound,Meadow And Larkspur South Bound,,38.0159526,-121.3357151,,,,,,0
+3792,3792,Meadow & Brentwood Southbound,Meadow And Brentwood South Bound,,38.0159836,-121.3321261,,,,,,0
+3793,3793,Pershing & Lincoln Southbound,Pershing And Lincoln South Bound,PERSHING & LINCOLN ROAD NS SB,38.0139123,-121.3299885,0.0,,,,,0
+3605,3605,Center & Fremont Southbound,Center And Fremont South Bound,,37.9576891,-121.2925738,0.0,,,,,0
+3155,3155,Lincoln & Jackson Southbound,Lincoln And Jackson South Bound,,37.9397153,-121.2945166,0.0,,,,,0
+7039,7039,Lincoln & Charter Southbound,Lincoln And Charter South Bound,,37.9372173,-121.2938491,0.0,,,,,0
+3156,3156,Lincoln & French Camp Southbound,Lincoln And French Camp South Bound,LINCOLN ST & FRENCH CAMP RD,37.9344418,-121.2930551,0.0,,,,,0
+3158,3158,Lincoln & Kohler Southbound,Lincoln And Kohler South Bound,,37.9313136,-121.2919206,0.0,,,,,0
+3159,3159,Lincoln & 8Th Southbound,Lincoln And 8Th South Bound,,37.9280081,-121.2903261,0.0,,,,,0
+3160,3160,8Th & French Camp Westbound,8Th And French Camp West Bound,,37.9271888,-121.2926575,0.0,,,,,0
+3161,3161,Lever & Colorado Southbound,Lever And Colorado South Bound,,37.9241103,-121.2986608,0.0,,,,,0
+3164,3164,Chicago & Alabama Eastbound,Chicago And Alabama East Bound,,37.92364,-121.2946175,0.0,,,,,0
+3407,3407,8Th & Argonaut Eastbound,8Th And Argonaut East Bound,,37.9265746,-121.3023611,0.0,,,,,0
+3399,3399,8Th & Capitola Westbound,8Th And Capitola West Bound,,37.9267121,-121.3078546,0.0,,,,,0
+3400,3400,Dry Creek & Diablo Creek Southbound,Dry Creek And Diablo Creek South Bound,,37.9254542,-121.3103833,0.0,,,,,0
+3350,3350,Harding & Rhode Island Eastbound,Harding And Rhode Island East Bound,HARDING WY & RHODE ISLAND AVE,37.9742761,-121.2576376,0.0,,,,,0
+3827,3827,Waterloo & Sycamore Eastbound,Waterloo And Sycamore East Bound,,37.9689666,-121.2709636,,,,,,0
+3725,3725,Fremont & Van Buren Westbound,Fremont And Van Buren West Bound,FREMONT ST & VAN BUREN ST,37.9567746,-121.2972938,0.0,,,,,0
+7061,7061,Fremont & Pershing Eastbound,Fremont And Pershing East Bound,,37.9542564,-121.3114658,0.0,,,,,0
+7072,7072,Feather River & March Southbound,Feather River And March South Bound,FEATHER RIVER & MARCH LANE NS SB,37.9856688,-121.3475891,0.0,,,,,0
+4052,4052,Pershing & Marco Polo Southbound,Pershing And Marco Polo South Bound,,37.9921903,-121.3232815,0.0,,,,,0
+4051,4051,Pershing & Venetian Southbound,Pershing And Venetian South Bound,PERSHING AVE & VENETIAN DR,37.9956486,-121.3245855,0.0,,,,,0
+3622,3622,Kermit & Longview Northbound,Kermit And Longview North Bound,,38.0076383,-121.3020998,0.0,,,,,0
+3636,3636,Kermit & Swain Southbound,Kermit And Swain South Bound,,38.0083288,-121.3025576,,,,,,0
+3625,3625,Cordova & Kermit Westbound,Cordova And Kermit West Bound,CORDOVA LN & KERMIT LN,38.0162901,-121.3039413,0.0,,,,,0
+3626,3626,Villa & Cordova Northbound,Villa And Cordova North Bound,,38.0164648,-121.3068433,0.0,,,,,0
+3627,3627,Villa & Murillo Northbound,Villa And Murillo North Bound,,38.0172818,-121.3076173,0.0,,,,,0
+3631,3631,Villa & Goya Southbound,Villa And Goya South Bound,,38.0181763,-121.3085483,0.0,,,,,0
+3629,3629,Los Molinas & Goya Northbound,Los Molinas And Goya North Bound,,38.0186678,-121.3070558,,,,,,0
+7136,7136,Los Molinas & Prado Northbound,Los Molinas And Prado North Bound,,38.0201931,-121.3070449,,,,,,0
+7166,7166,Hammer & West Lane Frontage Eastbound,Hammer And West Lane Frontage East Bound,,38.0207298,-121.2921825,0.0,,,,,0
+3333,3333,Kentfield & Gateway Northbound,Kentfield And Gateway North Bound,,37.9973348,-121.3030628,0.0,,,,,0
+3313,3313,Hammertown & Montauban Eastbound,Hammertown And Montauban East Bound,,38.0164923,-121.2884353,0.0,,,,,0
+3312,3312,Hammertown & West Lane Eastbound,Hammertown And West Lane East Bound,,38.0165233,-121.2933525,0.0,,,,,0
+7077,7077,Hammertown @ Kaiser Ent Westbound,Hammertown At Kaiser Ent West Bound,HAMMERTOWN  DR & KAISER ENTRANCE,38.0166453,-121.2971178,0.0,,,,,0
+7080,7080,West Lane & March Southbound,West Lane And March South Bound,,38.0010728,-121.2905043,0.0,,,,,0
+3330,3330,Bianchi & Dorset Westbound,Bianchi And Dorset West Bound,,37.9945508,-121.2979853,0.0,,,,,0
+3097,3097,Kentfield & Surrey Southbound,Kentfield And Surrey South Bound,,37.9940416,-121.3013286,0.0,,,,,0
+7168,7168,Hammer & West Lane Westbound,Hammer And West Lane West Bound,,38.0210863,-121.2954333,0.0,,,,,0
+3628,3628,Villa & Goya Northbound,Villa And Goya North Bound,,38.0181121,-121.3084126,0.0,,,,,0
+3632,3632,Villa & Cordova Southbound,Villa And Cordova South Bound,,38.0163875,-121.3069601,0.0,,,,,0
+3635,3635,Kermit & Kermit Southbound,Kermit And Kermit South Bound,KERMIT LN & KERMIT CT,38.0147951,-121.303633,0.0,,,,,0
+3623,3623,Kermit & Swain Northbound,Kermit And Swain North Bound,,38.0091756,-121.3025198,,,,,,0
+7167,7167,Hammer & Lorraine Westbound,Hammer And Lorraine West Bound,,38.0211796,-121.2824915,0.0,,,,,0
+7137,7137,Kermit & Benjamin Holt Southbound,Kermit And Benjamin Holt South Bound,,38.0123235,-121.3031746,,,,,,0
+3738,3738,Don & Waudman Northbound,Don And Waudman North Bound,,38.0297363,-121.3454395,0.0,,,,,0
+3739,3739,Don & Shropshire Northbound,Don And Shropshire North Bound,,38.0323998,-121.3454675,0.0,,,,,0
+3759,3759,Wagner Heights & Don Westbound,Wagner Heights And Don West Bound,,38.033775,-121.3464708,,,,,,0
+3760,3760,Wagner Heights & Blue Fox Westbound,Wagner Heights And Blue Fox West Bound,,38.0324928,-121.3502855,0.0,,,,,0
+3761,3761,Bainbridge & Wagner Heights Northbound,Bainbridge And Wagner Heights North Bound,BAINBRIDGE PL & WAGNER HEIGHTS RD,38.0322051,-121.3555803,0.0,,,,,0
+3763,3763,Stanfield & Bismark Westbound,Stanfield And Bismark West Bound,,38.0342402,-121.3587406,,,,,,0
+3764,3764,Stanfield & Kelley Westbound,Stanfield And Kelley West Bound,,38.0334317,-121.3631223,,,,,,0
+3765,3765,Salters & Bancroft Eastbound,Salters And Bancroft East Bound,,38.0360405,-121.3633271,,,,,,0
+3776,3776,Otto & Bismark Eastbound,Otto And Bismark East Bound,,38.0372729,-121.3586348,,,,,,0
+3777,3777,Otto & Ramsey Eastbound,Otto And Ramsey East Bound,,38.0381523,-121.353772,0.0,,,,,0
+3778,3778,Otto & Kardigan Eastbound,Otto And Kardigan East Bound,,38.0377553,-121.3510831,0.0,,,,,0
+3779,3779,Otto & Brisbane Eastbound,Otto And Brisbane East Bound,,38.0376265,-121.3485695,,,,,,0
+3782,3782,Lenox & Stanfield Southbound,Lenox And Stanfield South Bound,,38.0364651,-121.3449678,,,,,,0
+3783,3783,Branstetter & Burlington Southbound,Branstetter And Burlington South Bound,,38.0355203,-121.3464777,,,,,,0
+7009,7009,Pacific & Yokuts Northbound,Pacific And Yokuts North Bound,,37.996681,-121.314823,0.0,,,,,0
+7100,7100,Martin Luther King & California Westbound,Mlk And California West Bound,,37.9398908,-121.2812121,0.0,,,,,0
+3397,3397,Argonaut & Martin Luther King Southbound,Argonaut And Mlk South Bound,,37.9349111,-121.303036,0.0,,,,,0
+3398,3398,Argonaut & Irene Southbound,Argonaut And Irene South Bound,,37.9305194,-121.3030011,0.0,,,,,0
+7138,7138,Section & Oro (Woody'S) Eastbound,Section And Oro (Woody'S) East Bound,,37.9487006,-121.232419,0.0,,,,,0
+3640,3640,Section & Sinclair Eastbound,Section And Sinclair East Bound,SECTION AVE & SINCLAIR AVE,37.9486523,-121.228536,,,,,,0
+7139,7139,Sinclair & 6Th Southbound,Sinclair And 6Th South Bound,,37.9444578,-121.2267076,,,,,,0
+3643,3643,Farmington & Mission Valley Westbound,Farmington And Mission Valley West Bound,,37.939318,-121.238994,0.0,,,,,0
+7140,7140,8Th & Nightingale Westbound,8Th And Nightingale West Bound,,37.9371571,-121.2441141,0.0,,,,,0
+3649,3649,B & 6Th Northbound,B And 6Th North Bound,,37.9371439,-121.2566516,,,,,,0
+3650,3650,B & 4Th Northbound,B And 4Th North Bound,,37.9395905,-121.257648,,,,,,0
+3651,3651,B & Martin Luther King Northbound,B And Mlk North Bound,,37.9431245,-121.259101,0.0,,,,,0
+3652,3652,Wilson & Anderson Northbound,Wilson And Anderson North Bound,,37.9457016,-121.2687388,0.0,,,,,0
+3657,3657,Acacia & Madison Westbound,Acacia And Madison West Bound,,37.9619353,-121.2967971,0.0,,,,,0
+7143,7143,Acacia & Lincoln Eastbound,Acacia And Lincoln East Bound,,37.9612786,-121.3000308,,,,,,0
+3659,3659,Acacia & Stockton Westbound,Acacia And Stockton West Bound,,37.9604153,-121.3058063,0.0,,,,,0
+3661,3661,Pershing & Country Club Northbound,Pershing And Country Club North Bound,,37.9696645,-121.3150893,0.0,,,,,0
+7051,7051,Pershing & Alpine Southbound,Pershing And Alpine South Bound,,37.9755803,-121.3176893,0.0,,,,,0
+3663,3663,Pershing & Monaco Northbound,Pershing And Monaco North Bound,,37.9878851,-121.3213185,0.0,,,,,0
+3662,3662,Pershing & Rose Marie Northbound,Pershing And Rose Marie North Bound,,37.9864446,-121.3206155,0.0,,,,,0
+3415,3415,Swain & Exit Westbound,Swain And Exit West Bound,SWAIN RD & EXIT ST NS/WB,38.0016075,-121.3304623,0.0,,,,,0
+3416,3416,Swain & Alexandria Westbound,Swain And Alexandria West Bound,SWAIN RD & ALEXANDRIA PL NS/WB,38.0001063,-121.3370078,0.0,,,,,0
+3422,3422,Plymouth & Bridgeport Northbound,Plymouth And Bridgeport North Bound,PLYMOUTH RD & BRIDGEPORT CIR NS/NB,38.0119728,-121.3524863,0.0,,,,,0
+3423,3423,Plymouth & Kelley Northbound,Plymouth And Kelley North Bound,PLYMOUTH DR & KELLEY DR NS/NB,38.014503,-121.3523791,0.0,,,,,0
+3425,3425,Kelley & Hillview Northbound,Kelley And Hillview North Bound,KELLEY DR & HILLVIEW AV NS/NB,38.0178238,-121.3549958,0.0,,,,,0
+7162,7162,Mariners & Hammer Northbound,Mariners And Hammer North Bound,,38.0206285,-121.3613608,0.0,,,,,0
+7107,7107,Kelley & Hammer Northbound,Kelley And Hammer North Bound,KELLEY & HAMMER LANE NS NB,38.0209092,-121.3556052,0.0,,,,,0
+3424,3424,Kelley & Warwick Northbound,Kelley And Warwick North Bound,KELLEY DR & WARWICK CT FS/NB,38.0157308,-121.3542623,0.0,,,,,0
+3417,3417,Swain & Porter Westbound,Swain And Porter West Bound,SWAIN RD & PORTER WY FS/WB,38.0000668,-121.3450928,0.0,,,,,0
+3664,3664,Pershing & March Southbound,Pershing And March South Bound,,37.9881223,-121.321644,0.0,,,,,0
+3666,3666,Pershing & Rose Southbound,Pershing And Rose South Bound,,37.9607801,-121.3125711,0.0,,,,,0
+3667,3667,Acacia & Yosemite Eastbound,Acacia And Yosemite East Bound,,37.9601871,-121.3065568,,,,,,0
+7142,7142,Acacia & Lincoln Westbound,Acacia And Lincoln West Bound,,37.9612918,-121.300519,,,,,,0
+3670,3670,Acacia & Madison Eastbound,Acacia And Madison East Bound,,37.9618591,-121.2967196,,,,,,0
+3674,3674,Wilson & Anderson Southbound,Wilson And Anderson South Bound,,37.9455606,-121.2688596,0.0,,,,,0
+3675,3675,B & Martin Luther King Southbound,B And Mlk South Bound,,37.9432556,-121.2592276,0.0,,,,,0
+3676,3676,B & 4Th Southbound,B And 4Th South Bound,,37.9391303,-121.2576273,,,,,,0
+3677,3677,B & 6Th Southbound,B And 6Th South Bound,,37.9370767,-121.2566509,,,,,,0
+3679,3679,Farmington & Madrid Eastbound,Farmington And Madrid East Bound,,37.9390961,-121.2394526,,,,,,0
+3682,3682,Olive & 4Th Northbound,Olive And 4Th North Bound,,37.9447191,-121.2315881,,,,,,0
+7023,7023,Mathews & Canilis Westbound,Mathews And Canilis West Bound,,37.8826391,-121.2970611,0.0,,,,,0
+3799,3799,Louise & Harlan Eastbound,Louise And Harlan East Bound,,37.8116908,-121.2904951,0.0,,,,,0
+3800,3800,Lathrop & Harlan Westbound,Lathrop And Harlan West Bound,,37.8264348,-121.2874199,0.0,,,,,0
+7206,7206,Ham & Lodi Southbound,Ham And Lodi South Bound,,38.1295804,-121.2883923,,,,,,0
+7204,7204,Ham & Lodi Northbound,Ham And Lodi North Bound,,38.1288493,-121.2882003,,,,,,0
+3846,3846,Ham & Kettleman Northbound,Ham And Kettleman North Bound,,38.1166053,-121.2880473,,,,,,0
+3809,3809,Louise & Harlan Westbound,Louise And Harlan West Bound,,37.8118943,-121.2910021,0.0,,,,,0
+7205,7205,Lodi Transit Station Westbound,Lodi Transit Station West Bound,,38.132793,-121.2717548,,,,,,0
+7020,7020,California & Walnut Northbound,California And Walnut North Bound,,37.969908,-121.2889023,0.0,,,,,0
+7325,7325,West Lane & Stadium Southbound,West Lane And Stadium South Bound,,37.9856253,-121.2845891,,,,,,0
+7944,7944,Dublin/Pleasanton BART,Dublin/Pleasanton Bart,,37.7027898,-121.8978378,,,,,,0
+9904,9904,Sampson & Hammer Southbound,Sampson And Hammer South Bound,,38.0201231,-121.2678535,,,,,,0
+9906,9906,Q & 5Th Eastbound,Q And 5Th East Bound,,38.5742076,-121.503173,0.0,,,,,0
+9926,9926,8Th & K Northbound,8Th And K North Bound,,38.5800621,-121.4964396,0.0,,,,,0
+9923,9923,Calvary First Church,Calvary First Church,KELLEY DR,38.0255311,-121.3592998,0.0,,,,,0
+9925,9925,8Th & O Northbound,8Th And O North Bound,,38.5757569,-121.4983366,0.0,,,,,0
+7199,7199,Manteca Wal-Mart,Manteca Wal-Mart,,37.786891,-121.2161361,,,,,,0
+7111,7111,Cumberland & Benjamin Holt Northbound,Cumberland And Benjamin Holt North Bound,,38.0062433,-121.3627576,0.0,,,,,0
+7207,7207,Kettleman & Tienda Southbound,Kettleman And Tienda South Bound,,38.1156334,-121.3034301,,,,,,0
+7048,7048,Davinci & March Northbound,Davinci And March North Bound,,37.9836136,-121.3397511,0.0,,,,,0
+7079,7079,Kermit & Benjamin Holt Northbound,Kermit And Benjamin Holt North Bound,,38.0121131,-121.3029438,,,,,,0
+7081,7081,West Lane & Bianchi Northbound,West Lane And Bianchi North Bound,,37.9983083,-121.2890311,,,,,,0
+7084,7084,Lorraine & Hammer Southbound,Lorraine And Hammer South Bound,,38.0205849,-121.2833841,0.0,,,,,0
+7010,7010,Mall Transfer (North),Mall Transfer (North),,37.9972311,-121.3127161,,,,,,0
+7221,7221,Main & Industrial Park Northbound,Main And Industrial Park North Bound,,37.7880351,-121.2158736,0.0,,,,,0
+7043,7043,Michigan & Kirk Eastbound,Michigan And Kirk East Bound,MICHIGAN AVE & KIRK ST,37.9656949,-121.3429533,0.0,,,,,0
+9905,9905,Lodi Park and Ride,Lodi Park And Ride,,38.136649,-121.256721,0.0,,,,,0
+3358,3358,Fremont & Filbert Westbound,Fremont And Filbert West Bound,,37.9653664,-121.2562502,0.0,,,,,0
+7087,7087,Wilson & Lindsay Northbound,Wilson And Lindsay North Bound,,37.9596698,-121.2727013,0.0,,,,,0
+3147,3147,Weber & Van Buren Eastbound,Weber And Van Buren East Bound,WEBER AVE & VAN BUREN ST,37.9525811,-121.2963358,0.0,,,,,0
+3148,3148,Weber & Commerce Eastbound,Weber And Commerce East Bound,,37.9531501,-121.2930126,0.0,,,,,0
+7161,7161,Weber @ Courthouse Eastbound,Weber At Courthouse East Bound,,37.9538398,-121.2888845,,,,,,0
+7152,7152,Washington & Cardinal Eastbound,Washington And Cardinal East Bound,,37.9663075,-121.2231921,0.0,,,,,0
+3717,3717,8Th & Pock Eastbound,8Th And Pock East Bound,8TH ST & POCK LN,37.9359133,-121.2473158,0.0,,,,,0
+7151,7151,Oro & Main Northbound,Oro And Main North Bound,,37.9549646,-121.2346333,,,,,,0
+7090,7090,Waterloo & Golden Gate Westbound,Waterloo And Golden Gate West Bound,,37.9800378,-121.2573569,0.0,,,,,0
+7105,7105,8Th & Houston Eastbound,8Th And Houston East Bound,,37.9263678,-121.3208858,0.0,,,,,0
+7047,7047,Rose Marie & Mcgaw Westbound,Rose Marie And Mcgaw West Bound,,37.9854631,-121.3256701,0.0,,,,,0
+7148,7148,Main & Gertrude Westbound,Main And Gertrude West Bound,,37.9543773,-121.2329215,,,,,,0
+7046,7046,Pershing & Larry Heller Northbound,Pershing And Larry Heller North Bound,,37.9758466,-121.3175048,0.0,,,,,0
+7057,7057,Pershing & Fremont Northbound,Pershing And Fremont North Bound,,37.9546708,-121.3122538,0.0,,,,,0
+7102,7102,Stockton & Martin Luther King Northbound,Stockton And Mlk North Bound,,37.935723,-121.2998479,0.0,,,,,0
+7141,7141,Wilson & Jackson Northbound,Wilson And Jackson North Bound,,37.9438183,-121.2682293,0.0,,,,,0
+7004,7004,Miner & Wilson Eastbound,Miner And Wilson East Bound,,37.9586476,-121.2726273,0.0,,,,,0
+7183,7183,Otto & Estate Eastbound,Otto And Estate East Bound,OTTO DR & ESTATE DR,38.0375576,-121.3633261,0.0,,,,,0
+7082,7082,Hammer & Lorraine Eastbound,Hammer And Lorraine East Bound,,38.0208881,-121.2827148,0.0,,,,,0
+7001,7001,Miner & Sierra Nevada Westbound,Miner And Sierra Nevada West Bound,,37.9585921,-121.2740443,0.0,,,,,0
+4043,4043,Royal Oaks & Royal Park Eastbound,Royal Oaks And Royal Park East Bound,,38.0367858,-121.3300888,0.0,,,,,0
+7217,7217,Main & Louise Southbound,Main And Louise South Bound,,37.8115293,-121.2171731,,,,,,0
+7216,7216,99 Frontage & Togninali Southbound,99 Frontage And Togninali South Bound,,37.9175843,-121.2284683,0.0,,,,,0
+7189,7189,East & 10Th Northbound,East And 10Th North Bound,,37.7389401,-121.4210556,0.0,,,,,0
+3342,3342,Wilson & Pinchot Northbound,Wilson And Pinchot North Bound,,37.9688331,-121.2750465,0.0,,,,,0
+3548,3548,Stanislaus & Jackson Northbound,Stanislaus And Jackson North Bound,,37.9423843,-121.2787231,0.0,,,,,0
+3549,3549,Stanislaus & Worth Northbound,Stanislaus And Worth North Bound,,37.945347,-121.2795195,0.0,,,,,0
+3347,3347,Sanguinetti & Wilson Northbound,Sanguinetti And Wilson North Bound,,37.9830986,-121.2711211,0.0,,,,,0
+3560,3560,El Dorado & Wyandotte Northbound,El Dorado And Wyandotte North Bound,,37.9714751,-121.2953406,0.0,,,,,0
+3348,3348,Wilson & E Northbound,Wilson And E North Bound,,37.9852713,-121.2700553,0.0,,,,,0
+3562,3562,El Dorado & Noble Northbound,El Dorado And Noble North Bound,,37.9759463,-121.2975338,0.0,,,,,0
+3565,3565,El Dorado & Churchill Northbound,El Dorado And Churchill North Bound,EL DORADO ST & CHURCH ST,37.9865661,-121.3018671,0.0,,,,,0
+3332,3332,Kentfield & Surrey Northbound,Kentfield And Surrey North Bound,,37.994622,-121.3015223,0.0,,,,,0
+3366,3366,Bradford & Wilson Westbound,Bradford And Wilson West Bound,,37.9738935,-121.2758416,0.0,,,,,0
+3571,3571,Iris & Hammer Village Eastbound,Iris And Hammer Village East Bound,,38.0222926,-121.3117126,0.0,,,,,0
+3575,3575,Knickerbocker & New York Eastbound,Knickerbocker And New York East Bound,KNICKERBOCK DR & NEW YORK DR,38.0239635,-121.2957931,,,,,,0
+3582,3582,Sandalwood & Ringwood Westbound,Sandalwood And Ringwood West Bound,SANDALWOOD DR & RINGWOOD AVE,38.0323717,-121.2892149,0.0,,,,,0
+3584,3584,West Lane Frontage @ 8700 West Lane,West Lane Frontage At 8700 West Lane,,38.0302703,-121.2946558,0.0,,,,,0
+3590,3590,Prospector & West Lane Frontage Westbound,Prospector And West Lane Frontage West Bound,,38.0321993,-121.2955125,0.0,,,,,0
+3591,3591,Tam O'Shanter & Likala Southbound,Tam O'Shanter And Likala South Bound,,38.0301126,-121.300641,0.0,,,,,0
+3592,3592,Tam O'Shanter & Erie Southbound,Tam O'Shanter And Erie South Bound,,38.0254046,-121.3006221,0.0,,,,,0
+3600,3600,El Dorado & Alpine Southbound,El Dorado And Alpine South Bound,,37.9796671,-121.2991966,,,,,,0
+3612,3612,Stanislaus & Jackson Southbound,Stanislaus And Jackson South Bound,,37.9419528,-121.2787913,,,,,,0
+7615,7615,Airport & 8Th Southbound,Airport And 8Th South Bound,,37.9314126,-121.267072,0.0,,,,,0
+3616,3616,Airport & 10Th Southbound,Airport And 10Th South Bound,,37.9287999,-121.2661971,0.0,,,,,0
+3618,3618,Ralph & Zamora Eastbound,Ralph And Zamora East Bound,,37.9221538,-121.255152,,,,,,0
+3620,3620,B & 13Th Northbound,B And 13Th North Bound,,37.9281943,-121.2530225,,,,,,0
+3621,3621,B & 10Th Northbound,B And 10Th North Bound,,37.9322756,-121.2546658,,,,,,0
+7126,7126,Holman & Telstar Northbound,Holman And Telstar North Bound,,38.0185046,-121.2703803,0.0,,,,,0
+7203,7203,Kettleman & Tienda Northbound,Kettleman And Tienda North Bound,,38.1153739,-121.3023913,,,,,,0
+7737,7737,Lincoln & Weber Southbound,Lincoln And Weber South Bound,LINCOLN ST & WEBER AVE,37.9520861,-121.2978771,0.0,,,,,0
+3864,3864,Church & Pershing Westbound,Church And Pershing West Bound,,37.9449643,-121.3080735,0.0,,,,,0
+3585,3585,West Lane & West Lane Frontage Southbound,West Lane And West Lane Frontage South Bound,,38.0294011,-121.2951086,0.0,,,,,0
+3634,3634,West Lane & Hammer Northbound,West Lane And Hammer North Bound,,38.0215188,-121.2947086,0.0,,,,,0
+7264,7264,Fremont & Commerce Eastbound,Fremont And Commerce East Bound,,37.9571854,-121.2940118,0.0,,,,,0
+3081,3081,Mosswood & Odell Eastbound,Mosswood And Odell East Bound,MOSSWOOD AVE & ODELL AVE,37.9234068,-121.2852038,0.0,,,,,0
+3304,3304,Kentfield & March Southbound,Kentfield And March South Bound,,37.9972513,-121.3031008,0.0,,,,,0
+3331,3331,Bianchi & Kentfield Westbound,Bianchi And Kentfield West Bound,,37.9930783,-121.3003666,0.0,,,,,0
+3305,3305,Dorset & Bianchi Southbound,Dorset And Bianchi South Bound,,37.9945905,-121.2986861,0.0,,,,,0
+3328,3328,Bianchi & Clowes Westbound,Bianchi And Clowes West Bound,,37.9973916,-121.2906188,0.0,,,,,0
+3329,3329,Bianchi & Hillsboro Westbound,Bianchi And Hillsboro West Bound,,37.9958493,-121.2960281,0.0,,,,,0
+3314,3314,Lorraine & Homewood Northbound,Lorraine And Homewood North Bound,,38.0172474,-121.284451,0.0,,,,,0
+3316,3316,Hammer & Pavilion Eastbound,Hammer And Pavilion East Bound,,38.020962,-121.2759391,0.0,,,,,0
+3318,3318,Hammer & Holman Eastbound,Hammer And Holman East Bound,,38.021001,-121.2709428,0.0,,,,,0
+3321,3321,Hammer & Girardi Westbound,Hammer And Girardi West Bound,,38.0212313,-121.2772861,0.0,,,,,0
+3322,3322,Lorraine & Homewood Southbound,Lorraine And Homewood South Bound,,38.0168601,-121.284879,0.0,,,,,0
+3324,3324,Hammertown & Everest Westbound,Hammertown And Everest West Bound,,38.0166361,-121.2926768,0.0,,,,,0
+3515,3515,Airport & Park Northbound,Airport And Park North Bound,,37.9625358,-121.2760285,0.0,,,,,0
+3516,3516,Airport & Roosevelt Northbound,Airport And Roosevelt North Bound,,37.9671108,-121.2772941,0.0,,,,,0
+3519,3519,Harding & Hiawatha Eastbound,Harding And Hiawatha East Bound,HARDING WY & HIAWATHA AVE,37.9716,-121.2699871,0.0,,,,,0
+3520,3520,Cherokee & Waterloo Northbound,Cherokee And Waterloo North Bound,CHEROKEE RD & WATERLOO RD,37.9740286,-121.2672915,0.0,,,,,0
+3521,3521,Cherokee & Myran Northbound,Cherokee And Myran North Bound,CHEROKEE RD & MYRAN AVE,37.9836091,-121.2602268,0.0,,,,,0
+3867,3867,Carolyn Weston & Mcdougald Westbound,Carolyn Weston And Mcdougald West Bound,CAROLYN WESTON BLVD & MCDOUGALD BLVD,37.911381,-121.2990333,,,,,,0
+3868,3868,Carolyn Weston & General Mueller Westbound,Carolyn Weston And General Mueller West Bound,CAROLYN WESTON BLVD & GEN MUELLER LN,37.9114761,-121.3022178,0.0,,,,,0
+3870,3870,Carolyn Weston & Ishi Goto Westbound,Carolyn Weston And Ishi Goto West Bound,,37.9124913,-121.3093373,0.0,,,,,0
+7210,7210,Carolyn Weston & Gaswell Westbound,Carolyn Weston And Gaswell West Bound,CAROLYN WESTON BLVD & GASWELL,37.9134721,-121.3132741,,,,,,0
+3875,3875,Henry Long & Ews Wood Eastbound,Henry Long And Ews Wood East Bound,,37.9020211,-121.3028475,0.0,,,,,0
+3879,3879,William Moss & Ramalho Eastbound,William Moss And Ramalho East Bound,,37.9066843,-121.2918523,0.0,,,,,0
+3876,3876,Henry Long & Woodhollow Eastbound,Henry Long And Woodhollow East Bound,,37.9011513,-121.2989983,,,,,,0
+3877,3877,Mcdougald & Henry Long Northbound,Mcdougald And Henry Long North Bound,,37.9007618,-121.2947143,0.0,,,,,0
+3871,3871,Carolyn Weston & Kay Bridges Westbound,Carolyn Weston And Kay Bridges West Bound,CAROLYN WESTON BLVD & KAY BRIDGES PL,37.9110216,-121.3179288,,,,,,0
+3872,3872,Carolyn Weston & Monet Southbound,Carolyn Weston And Monet South Bound,,37.9070798,-121.3194643,0.0,,,,,0
+3873,3873,Carolyn Weston & Aso Taro Southbound,Carolyn Weston And Aso Taro South Bound,,37.9052921,-121.3197628,0.0,,,,,0
+3874,3874,Henry Long & Estes Eastbound,Henry Long And Estes East Bound,,37.9022078,-121.3152336,0.0,,,,,0
+3878,3878,Mcdougald & Bess Northbound,Mcdougald And Bess North Bound,,37.9052325,-121.295332,0.0,,,,,0
+7103,7103,California & Vine Northbound,California And Vine North Bound,,37.9662376,-121.2879328,0.0,,,,,0
+3762,3762,Stanfield & Appling Westbound,Stanfield And Appling West Bound,STANFIELD DR & APPLING CIR,38.0348017,-121.3557532,0.0,,,,,0
+3482,3482,Thornton & A.G. Spanos Northbound,Thornton And A.G. Spanos North Bound,,38.0462723,-121.3504573,0.0,,,,,0
+3507,3507,Thornton & A.G. Spanos Southbound,Thornton And A.G. Spanos South Bound,,38.0450141,-121.3502201,0.0,,,,,0
+3409,3409,Stockton & Gabriel Northbound,Stockton And Gabriel North Bound,,37.928427,-121.2998108,0.0,,,,,0
+3408,3408,Stockton & 8Th Northbound,Stockton And 8Th North Bound,,37.927053,-121.2997913,0.0,,,,,0
+3450,3450,Herndon & Mill Springs Southbound,Herndon And Mill Springs South Bound,HERNDON PL & MILL SPRINGS DR,38.008817,-121.357557,0.0,,,,,0
+3523,3523,Maranatha & Christian Life Northbound,Maranatha And Christian Life North Bound,,38.0245658,-121.2640438,0.0,,,,,0
+3532,3532,Holman & Wakeman Northbound,Holman And Wakeman North Bound,,38.0243538,-121.2709166,0.0,,,,,0
+3524,3524,Holman & Bryant Southbound,Holman And Bryant South Bound,,38.026895,-121.2699328,0.0,,,,,0
+3401,3401,Dry Creek & Houston Southbound,Dry Creek And Houston South Bound,,37.9212993,-121.3087083,0.0,,,,,0
+3402,3402,Houston & Sunol Valley Northbound,Houston And Sunol Valley North Bound,,37.9211911,-121.3142464,0.0,,,,,0
+3403,3403,Houston & Tilden Park Northbound,Houston And Tilden Park North Bound,HOUSTON ST & VAN BUREN ST,37.9237006,-121.3196626,0.0,,,,,0
+3404,3404,8Th & Tillie Lewis Eastbound,8Th And Tillie Lewis East Bound,,37.9265556,-121.3185413,0.0,,,,,0
+3410,3410,Stockton & 5Th Northbound,Stockton And 5Th North Bound,,37.9311595,-121.299812,0.0,,,,,0
+3405,3405,8Th & Fresno Eastbound,8Th And Fresno East Bound,,37.92657,-121.3115713,0.0,,,,,0
+3527,3527,March & Holman Westbound,March And Holman West Bound,,38.0059436,-121.2724068,0.0,,,,,0
+3525,3525,Holman & Wakeman Southbound,Holman And Wakeman South Bound,,38.0238176,-121.2715788,0.0,,,,,0
+3641,3641,Sinclair & 4Th Southbound,Sinclair And 4Th South Bound,SINCLAIR AVE & 4TH ST,37.9464178,-121.2274921,0.0,,,,,0
+3653,3653,Wilson & Hazelton Northbound,Wilson And Hazelton North Bound,,37.9503278,-121.2699871,0.0,,,,,0
+3655,3655,Wilson & Market Northbound,Wilson And Market North Bound,,37.9549223,-121.2712391,0.0,,,,,0
+3421,3421,Plymouth & Crittendon Northbound,Plymouth And Crittendon North Bound,PLYMOUTH RD  & CRITTENDON CT FS/NB,38.0094295,-121.3516801,0.0,,,,,0
+3489,3489,El Dorado & Normandy Southbound,El Dorado And Normandy South Bound,EL DORADO ST & NORMANDY CT,38.0290561,-121.3163423,0.0,,,,,0
+3665,3665,Pershing & Country Club Southbound,Pershing And Country Club South Bound,,37.9691975,-121.3151231,0.0,,,,,0
+3671,3671,Wilson & Main Southbound,Wilson And Main South Bound,,37.9556746,-121.2716351,0.0,,,,,0
+3672,3672,Wilson & Lafayette Southbound,Wilson And Lafayette South Bound,,37.9531003,-121.2709905,0.0,,,,,0
+3673,3673,Wilson & Hazelton Southbound,Wilson And Hazelton South Bound,,37.9500916,-121.270095,0.0,,,,,0
+3680,3680,Farmington @ 3808 Eastbound,Farmington At 3808 East Bound,FARMINGTON RD & 3808 FARMINGTON RD,37.9395314,-121.2378008,,,,,,0
+3084,3084,8Th & San Joaquin Eastbound,8Th And San Joaquin East Bound,,37.9292411,-121.2806023,0.0,,,,,0
+3128,3128,Clayton & Harvey Eastbound,Clayton And Harvey East Bound,,37.9109856,-121.2769693,0.0,,,,,0
+3129,3129,El Dorado & Western Lumber Southbound,El Dorado And Western Lumber South Bound,EL DORADO ST & WESTERN LUMBER,37.9044178,-121.2758165,0.0,,,,,0
+3537,3537,Cherokee & F Southbound,Cherokee And F South Bound,,37.9770585,-121.26523,0.0,,,,,0
+3538,3538,Harding & Hiawatha Westbound,Harding And Hiawatha West Bound,,37.9716073,-121.2706576,0.0,,,,,0
+3539,3539,Harding & Funston Westbound,Harding And Funston West Bound,,37.9715616,-121.2707808,0.0,,,,,0
+3517,3517,Airport & Harding Northbound,Airport And Harding North Bound,,37.9699813,-121.2780545,0.0,,,,,0
+3541,3541,Airport & Roosevelt Southbound,Airport And Roosevelt South Bound,AIRPORT WY & ROOSEVELT ST,37.9666736,-121.2773353,0.0,,,,,0
+3683,3683,Main & Anteros Westbound,Main And Anteros West Bound,,37.9542141,-121.2375331,,,,,,0
+3686,3686,Main & F Westbound,Main And F West Bound,,37.95503,-121.2541666,0.0,,,,,0
+3688,3688,Main & D Westbound,Main And D West Bound,,37.9552883,-121.259454,0.0,,,,,0
+3359,3359,Fremont & Laurel Westbound,Fremont And Laurel West Bound,,37.96207,-121.2659496,0.0,,,,,0
+3798,3798,East & Carlton Northbound,East And Carlton North Bound,,37.7463558,-121.4211374,0.0,,,,,0
+3703,3703,Main & Fair Oaks Library Eastbound,Main And Fair Oaks Library East Bound,,37.9549836,-121.2557933,0.0,,,,,0
+3709,3709,Washington & Dawes Eastbound,Washington And Dawes East Bound,WASHINGTON ST & DAWES AVE,37.9638501,-121.2322728,0.0,,,,,0
+3712,3712,Cardinal & Meadowood Southbound,Cardinal And Meadowood South Bound,,37.9594063,-121.2198855,0.0,,,,,0
+3713,3713,Main & Del Mar Westbound,Main And Del Mar West Bound,MAIN ST & DEL MAR AVE,37.9558436,-121.2270985,,,,,,0
+3890,3890,Togninali & Pock Eastbound,Togninali And Pock East Bound,,37.9164246,-121.2385111,0.0,,,,,0
+3812,3812,Wilma & 4Th Southbound,Wilma And 4Th South Bound,,37.7367956,-121.1354831,0.0,,,,,0
+3899,3899,Togninali & Kimball Westbound,Togninali And Kimball West Bound,TOGNINALI LN & KIMBALL LN,37.9174668,-121.2349503,0.0,,,,,0
+3900,3900,Togninali & Pock Westbound,Togninali And Pock West Bound,,37.9163719,-121.2390978,0.0,,,,,0
+7223,7223,Ralph & Airport Westbound,Ralph And Airport West Bound,RALPH AVE & AIRPORT WY,37.9203321,-121.2622366,,,,,,0
+3654,3654,Wilson & Lafayette Northbound,Wilson And Lafayette North Bound,,37.9526246,-121.2706111,0.0,,,,,0
+3903,3903,East & Grant Line Southbound,East And Grant Line South Bound,,37.7539023,-121.4211891,0.0,,,,,0
+3530,3530,Holman & Etcheverry Northbound,Holman And Etcheverry North Bound,,38.0047811,-121.271784,0.0,,,,,0
+3540,3540,Airport & Harding Southbound,Airport And Harding South Bound,AIRPORT WY & HARDING WY,37.9698633,-121.2782046,0.0,,,,,0
+3862,3862,Lincoln & Sonora Southbound,Lincoln And Sonora South Bound,,37.9470836,-121.2965231,0.0,,,,,0
+3865,3865,Fresno & Sonora Northbound,Fresno And Sonora North Bound,,37.9448943,-121.3125225,0.0,,,,,0
+3819,3819,Giannecchini & Transworld Northbound,Giannecchini And Transworld North Bound,,37.9082244,-121.2333403,0.0,,,,,0
+7222,7222,Main & Louise Northbound,Main And Louise North Bound,,37.8122718,-121.2169193,,,,,,0
+7324,7324,Holman & Auto Center Southbound,Holman And Auto Center South Bound,,38.0195753,-121.2712151,0.0,,,,,0
+7190,7190,Grant Line & Macarthur Eastbound,Grant Line And Macarthur East Bound,GRANT LINE RD & MACARTHUR BLVD,37.7541389,-121.4139331,,,,,,0
+3797,3797,Grant Line & East Eastbound,Grant Line And East East Bound,,37.7541223,-121.4203548,0.0,,,,,0
+7127,7127,Park & Aurora Westbound,Park And Aurora West Bound,PARK ST & AURORA ST,37.961348,-121.2821815,0.0,,,,,0
+3306,3306,Bianchi & Hillsboro Eastbound,Bianchi And Hillsboro East Bound,,37.9957873,-121.2958041,0.0,,,,,0
+3637,3637,Elaine & Kermit Eastbound,Elaine And Kermit East Bound,,38.0059958,-121.3009618,0.0,,,,,0
+3856,3856,Lincoln & Layfayette Northbound,Lincoln And Layfayette North Bound,,37.9483608,-121.2966573,0.0,,,,,0
+3144,3144,Weber & Center Westbound,Weber And Center West Bound,,37.9534441,-121.2919418,0.0,,,,,0
+3710,3710,Washington & Thelma Eastbound,Washington And Thelma East Bound,,37.9651416,-121.227558,0.0,,,,,0
+7059,7059,Mt Diablo & Ryde Westbound,Mt Diablo And Ryde West Bound,,37.9565656,-121.3334205,0.0,,,,,0
+3529,3529,March & Bianchi Eastbound,March And Bianchi East Bound,,38.0035051,-121.2842698,0.0,,,,,0
+3528,3528,March & Montauban Westbound,March And Montauban West Bound,,38.003575,-121.2852073,0.0,,,,,0
+3553,3553,Weber & Stanislaus Westbound,Weber And Stanislaus West Bound,,37.9551228,-121.2826908,0.0,,,,,0
+3583,3583,Sandalwood & West Lane Frontage Westbound,Sandalwood And West Lane Frontage West Bound,SANDALWOOD DR & WEST LANE FRONTAGE,38.0323178,-121.2945184,0.0,,,,,0
+9927,9927,N & 10Th Eastbound,N And 10Th East Bound,,38.5757736,-121.4951893,0.0,,,,,0
+9928,9928,N & 14Th Eastbound,N And 14Th East Bound,,38.5743738,-121.4900431,0.0,,,,,0
+7211,7211,Henry Long & Mccuen Eastbound,Henry Long And Mccuen East Bound,,37.9020749,-121.3076753,,,,,,0
+3535,3535,Wigwam & Lance Southbound,Wigwam And Lance South Bound,WIGWAM DR & LANCE DR,37.9861886,-121.2565565,0.0,,,,,0
+3820,3820,Qantas & Transworld Southbound,Qantas And Transworld South Bound,QANTAS LN & TRANSWORLD DR,37.9065106,-121.2289282,0.0,,,,,0
+3847,3847,Kettleman & Ham Westbound,Kettleman And Ham West Bound,KETTLEMAN LN & HAM LN,38.1155613,-121.2888741,,,,,,0
+7025,7025,Downtown Transit Center Lane B,Downtown Transit Center Lane B,,37.9550145,-121.2860518,0.0,,,,,0
+7017,7017,Downtown Transit Center Lane C,Downtown Transit Center Lane C,,37.9550969,-121.2861588,0.0,,,,,0
+7003,7003,Downtown Transit Center Lane D,Downtown Transit Center Lane D,,37.9551221,-121.2856678,0.0,,,,,0
+3630,3630,Tam O'Shanter & Hammer Southbound,Tam O'Shanter And Hammer South Bound,,38.0205116,-121.3006445,0.0,,,,,0
+3486,3486,Lower Sacramento & Royal Oaks Southbound,Lower Sacramento And Royal Oaks South Bound,,38.0364725,-121.3228941,0.0,,,,,0
+7172,7172,Oak & Aurora Eastbound,Oak And Aurora East Bound,OAK ST & AURORA,37.9605148,-121.2805708,0.0,,,,,0
+3484,3484,Davis & Chaparral Southbound,Davis And Chaparral South Bound,,38.0402001,-121.3319926,0.0,,,,,0
+3394,3394,Martin Luther King & El Dorado Westbound,Mlk And El Dorado West Bound,,37.9394496,-121.2838281,0.0,,,,,0
+3395,3395,Martin Luther King & Van Buren Westbound,Mlk And Van Buren West Bound,,37.9377878,-121.292898,0.0,,,,,0
+7169,7169,Hammer & Don Westbound,Hammer And Don West Bound,,38.0214656,-121.3460209,0.0,,,,,0
+7184,7184,Otto & Thornton Eastbound,Otto And Thornton East Bound,,38.0385989,-121.3436246,0.0,,,,,0
+7185,7185,Stanfield & Thornton Westbound,Stanfield And Thornton West Bound,STANFIELD DR & THORNTON RD,38.0366917,-121.3414429,,,,,,0
+7176,7176,Trinity & Cosumnes Northbound,Trinity And Cosumnes North Bound,,38.0489728,-121.3735895,0.0,,,,,0
+7165,7165,Hammer Transfer Station,Hammer Transfer Station,,38.0206428,-121.323518,,,,,,0
+7083,7083,Hammer & Holman Westbound,Hammer And Holman West Bound,,38.0213315,-121.2728823,0.0,,,,,0
+7163,7163,Hammer & Meadow Eastbound,Hammer And Meadow East Bound,,38.02126,-121.34541,0.0,,,,,0
+3307,3307,Bianchi & Clowes Eastbound,Bianchi And Clowes East Bound,,37.9972134,-121.2906796,0.0,,,,,0
+3000,3000,Miner & Airport Westbound,Miner And Airport West Bound,,37.9583694,-121.2750583,0.0,,,,,0
+3001,3001,Miner & Airport Eastbound,Miner And Airport East Bound,,37.958167,-121.2753913,0.0,,,,,0
+7006,7006,Downtown Transit Center Lane A,Downtown Transit Center Lane A,,37.9549588,-121.2857028,0.0,,,,,0
+3003,3003,Fremont & Center Westbound,Fremont And Center West Bound,,37.9576581,-121.2922615,0.0,,,,,0
+3004,3004,Fremont & Madison Westbound,Fremont And Madison West Bound,,37.9572259,-121.2948485,0.0,,,,,0
+3005,3005,Madison & Flora Northbound,Madison And Flora North Bound,,37.9598624,-121.2957874,0.0,,,,,0
+3006,3006,Madison & Acacia Northbound,Madison And Acacia North Bound,MADISON ST & ACACIA ST,37.9621891,-121.296384,0.0,,,,,0
+3007,3007,Madison & Vine Northbound,Madison And Vine North Bound,MADISON ST & VINE ST,37.9651777,-121.2972282,0.0,,,,,0
+3008,3008,Pacific & Pine Northbound,Pacific And Pine North Bound,PACIFIC AVE & PINE ST,37.9716888,-121.3004066,0.0,,,,,0
+3010,3010,Pacific & Monterey Northbound,Pacific And Monterey North Bound,PACIFIC AVE & MONTEREY AVE,37.9761503,-121.3036428,0.0,,,,,0
+3012,3012,Pacific & Bianchi Northbound,Pacific And Bianchi North Bound,,37.9875883,-121.3110918,0.0,,,,,0
+3013,3013,Pacific & March Northbound,Pacific And March North Bound,,37.9920225,-121.3127815,0.0,,,,,0
+3014,3014,Pacific & Weberstown Ent Northbound,Pacific And Weberstown Ent North Bound,,37.9940095,-121.3136386,0.0,,,,,0
+3015,3015,Pacific & March Southbound,Pacific And March South Bound,,37.9908605,-121.3126948,0.0,,,,,0
+3016,3016,Pacific & Bianchi Southbound,Pacific And Bianchi South Bound,,37.9874616,-121.3113203,0.0,,,,,0
+3018,3018,Pacific & Monterey Southbound,Pacific And Monterey South Bound,PACIFIC AVE & MONTEREY AVE,37.9760186,-121.3037671,0.0,,,,,0
+3019,3019,Pacific & Tuxedo Southbound,Pacific And Tuxedo South Bound,PACIFIC AVE & TUXEDO AVE,37.9718495,-121.300738,0.0,,,,,0
+3020,3020,Madison & Vine Southbound,Madison And Vine South Bound,MADISON ST & VINE ST,37.9649868,-121.2973098,0.0,,,,,0
+3021,3021,Madison & Magnolia Southbound,Madison And Magnolia South Bound,MADISON ST & MAGNOLIA ST,37.9626898,-121.2966693,0.0,,,,,0
+3022,3022,Madison & Flora Southbound,Madison And Flora South Bound,,37.9598051,-121.295897,0.0,,,,,0
+3023,3023,Fremont & Commerce Eastbound,Fremont And Commerce East Bound,FREMONT ST & COMMERCE ST,37.9572914,-121.2935261,0.0,,,,,0
+3024,3024,San Joaquin & Lafayette Northbound,San Joaquin And Lafayette North Bound,,37.9504761,-121.2863526,0.0,,,,,0
+3026,3026,San Joaquin & Main Northbound,San Joaquin And Main North Bound,,37.9533026,-121.2871513,0.0,,,,,0
+3027,3027,California & Fremont Northbound,California And Fremont North Bound,,37.9584506,-121.2858283,0.0,,,,,0
+3028,3028,California & Oak Northbound,California And Oak North Bound,,37.959455,-121.286065,0.0,,,,,0
+3029,3029,California & Flora Northbound,California And Flora North Bound,,37.961729,-121.2867078,0.0,,,,,0
+3030,3030,California & Magnolia Northbound,California And Magnolia North Bound,,37.9648401,-121.2875563,0.0,,,,,0
+3032,3032,California & Wyandotte Northbound,California And Wyandotte North Bound,,37.9730066,-121.2899021,0.0,,,,,0
+3033,3033,California & Geary Northbound,California And Geary North Bound,E GEARY ST & N CALIFORNIA ST,37.9760461,-121.2911706,0.0,,,,,0
+3034,3034,California & Sonoma Northbound,California And Sonoma North Bound,,37.9809598,-121.2931673,0.0,,,,,0
+3035,3035,West Lane & Enterprise Northbound,West Lane And Enterprise North Bound,,37.9901138,-121.2859361,0.0,,,,,0
+3037,3037,West Lane & March Northbound,West Lane And March North Bound,,38.0025911,-121.2907421,0.0,,,,,0
+3038,3038,West Lane & Atchenson Northbound,West Lane And Atchenson North Bound,,38.0063458,-121.2922391,0.0,,,,,0
+3039,3039,West Lane & Swain Northbound,West Lane And Swain North Bound,,38.0114543,-121.2941116,0.0,,,,,0
+3040,3040,Tam O'Shanter & Hammertown Southbound,Tam O'Shanter And Hammertown South Bound,,38.015402,-121.299133,0.0,,,,,0
+3041,3041,Tam O'Shanter @ Comcast Cable Southbound,Tam O'Shanter At Comcast Cable South Bound,,38.0129141,-121.2977131,0.0,,,,,0
+3042,3042,West Lane & Swain Southbound,West Lane And Swain South Bound,,38.0102413,-121.2941363,0.0,,,,,0
+3043,3043,West Lane & Access Southbound,West Lane And Access South Bound,,38.0057041,-121.2923193,0.0,,,,,0
+3045,3045,West Lane & Bianchi Southbound,West Lane And Bianchi South Bound,,37.9967293,-121.2887406,0.0,,,,,0
+3046,3046,West Lane & Enterprise Southbound,West Lane And Enterprise South Bound,,37.9899993,-121.2861961,0.0,,,,,0
+3047,3047,California & Sonoma Southbound,California And Sonoma South Bound,,37.9809208,-121.2933741,0.0,,,,,0
+3049,3049,California & Hampton Southbound,California And Hampton South Bound,,37.9751493,-121.2910028,0.0,,,,,0
+3050,3050,California & Wyandotte Southbound,California And Wyandotte South Bound,,37.9726611,-121.2899851,0.0,,,,,0
+3052,3052,California & Vine Southbound,California And Vine South Bound,,37.9665098,-121.2881861,0.0,,,,,0
+3053,3053,California & Magnolia Southbound,California And Magnolia South Bound,,37.9641303,-121.2875368,0.0,,,,,0
+3055,3055,California & Flora Southbound,California And Flora South Bound,,37.9617221,-121.286878,0.0,,,,,0
+3056,3056,California & Oak Southbound,California And Oak South Bound,,37.9597511,-121.2863628,0.0,,,,,0
+3057,3057,California & Fremont Southbound,California And Fremont South Bound,,37.9587341,-121.2860483,0.0,,,,,0
+3058,3058,San Joaquin & Weber Southbound,San Joaquin And Weber South Bound,,37.9537506,-121.2874241,0.0,,,,,0
+3059,3059,San Joaquin & Market Southbound,San Joaquin And Market South Bound,,37.9519103,-121.2869553,0.0,,,,,0
+3060,3060,Lever & 8Th Southbound,Lever And 8Th South Bound,,37.9258904,-121.2975425,0.0,,,,,0
+3061,3061,Chicago & Colorado Eastbound,Chicago And Colorado East Bound,,37.9229936,-121.2976038,0.0,,,,,0
+3065,3065,Freedom & Matthews Southbound,Freedom And Matthews South Bound,,37.8828728,-121.2819855,0.0,,,,,0
+3066,3066,Mathews & Bright Westbound,Mathews And Bright West Bound,,37.8825181,-121.2920603,0.0,,,,,0
+3067,3067,Mathews & Endow Westbound,Mathews And Endow West Bound,MATHEWS RD & ENDOW RD,37.8825635,-121.2945471,0.0,,,,,0
+3068,3068,Mathews & Freedom Eastbound,Mathews And Freedom East Bound,,37.8822243,-121.282095,0.0,,,,,0
+3070,3070,Carolyn Weston & Manthey Eastbound,Carolyn Weston And Manthey East Bound,,37.912417,-121.2939391,0.0,,,,,0
+3072,3072,California & Arcade Northbound,California And Arcade North Bound,,37.9783021,-121.2922274,0.0,,,,,0
+7030,7030,Essex & El Dorado Eastbound,Essex And El Dorado East Bound,,37.9872399,-121.3017956,0.0,,,,,0
+3105,3105,Essex & Sutter Eastbound,Essex And Sutter East Bound,,37.9880558,-121.2985045,0.0,,,,,0
+3146,3146,Lincoln & Washington Northbound,Lincoln And Washington North Bound,,37.9498848,-121.2971878,0.0,,,,,0
+3157,3157,Lincoln & 4Th Southbound,Lincoln And 4Th South Bound,,37.932424,-121.292285,0.0,,,,,0
+3165,3165,San Joaquin & Oak Northbound,San Joaquin And Oak North Bound,,37.9592453,-121.2888644,0.0,,,,,0
+3174,3174,Pershing & Elm Northbound,Pershing And Elm North Bound,,37.964756,-121.3134048,0.0,,,,,0
+3175,3175,Country Club & Grange Westbound,Country Club And Grange West Bound,,37.9684366,-121.3194838,0.0,,,,,0
+3176,3176,Country Club & Mission Westbound,Country Club And Mission West Bound,,37.9676356,-121.3227016,0.0,,,,,0
+3177,3177,Country Club & Franklin Westbound,Country Club And Franklin West Bound,,37.9661918,-121.3284993,0.0,,,,,0
+3178,3178,Country Club & Delaware Westbound,Country Club And Delaware West Bound,,37.9655953,-121.3308903,0.0,,,,,0
+3179,3179,Country Club & Plymouth Westbound,Country Club And Plymouth West Bound,,37.9647186,-121.3345183,0.0,,,,,0
+3180,3180,Oregon & Michigan Southbound,Oregon And Michigan South Bound,,37.9650998,-121.3442671,0.0,,,,,0
+3182,3182,Country Club & Oregon Eastbound,Country Club And Oregon East Bound,,37.9625845,-121.3424136,0.0,,,,,0
+3183,3183,Alpine & Mission Eastbound,Alpine And Mission East Bound,,37.9733905,-121.3254031,0.0,,,,,0
+3184,3184,Alpine & Grange Eastbound,Alpine And Grange East Bound,,37.9743616,-121.3215941,0.0,,,,,0
+3185,3185,Alpine & Pershing Eastbound,Alpine And Pershing East Bound,,37.9751241,-121.3185288,0.0,,,,,0
+3186,3186,Pershing & Brookside Northbound,Pershing And Brookside North Bound,,37.9822391,-121.3189465,0.0,,,,,0
+3187,3187,Rose Marie & Pershing Westbound,Rose Marie And Pershing West Bound,,37.9865483,-121.3212348,0.0,,,,,0
+3188,3188,Rose Marie & Angelico Westbound,Rose Marie And Angelico West Bound,,37.9841539,-121.3307815,0.0,,,,,0
+3189,3189,Rose Marie & Piccardo Westbound,Rose Marie And Piccardo West Bound,,37.9837391,-121.3324453,0.0,,,,,0
+3195,3195,March & Pershing Eastbound,March And Pershing East Bound,,37.9890298,-121.3213271,0.0,,,,,0
+3199,3199,March & Pacific Westbound,March And Pacific West Bound,,37.9910896,-121.3140838,0.0,,,,,0
+3200,3200,March & Precissi Westbound,March And Precissi West Bound,MARCH LN & PRECISSI LN NS/WB,37.9907263,-121.3154714,0.0,,,,,0
+3201,3201,March & Pershing Westbound,March And Pershing West Bound,MARCH LN & PERSHING AV FS/WB,37.9890248,-121.3224828,0.0,,,,,0
+3202,3202,March & Venetian Westbound,March And Venetian West Bound,MARCH LN & VENETIAN DR FS/WB,37.9880708,-121.3263083,0.0,,,,,0
+3203,3203,March & Grouse Run Westbound,March And Grouse Run West Bound,MARCH LN & GROUSE RUN DR FS/WB,37.9872233,-121.3296556,0.0,,,,,0
+3204,3204,March & Quail Lakes Westbound,March And Quail Lakes West Bound,MARCH LN & QUAIL LAKES PLAZA NS/WB,37.9858201,-121.3350781,0.0,,,,,0
+7049,7049,Davinci & March Southbound,Davinci And March South Bound,,37.9839333,-121.3398623,0.0,,,,,0
+3205,3205,Rosemarie & Lorenzo Eastbound,Rosemarie And Lorenzo East Bound,,37.9822215,-121.3375881,0.0,,,,,0
+3206,3206,Rosemarie & Venezia Eastbound,Rosemarie And Venezia East Bound,,37.9835191,-121.3344215,0.0,,,,,0
+3207,3207,Rose Marie & Angelico Eastbound,Rose Marie And Angelico East Bound,,37.9840291,-121.3308548,0.0,,,,,0
+3208,3208,Pershing & Rose Marie Southbound,Pershing And Rose Marie South Bound,,37.9860241,-121.3206631,0.0,,,,,0
+3209,3209,Pershing & Brookside Southbound,Pershing And Brookside South Bound,,37.981723,-121.3189681,0.0,,,,,0
+3210,3210,Alpine & Pershing Westbound,Alpine And Pershing West Bound,,37.9752868,-121.318495,0.0,,,,,0
+3211,3211,Alpine & Grange Westbound,Alpine And Grange West Bound,,37.9743071,-121.3223693,0.0,,,,,0
+3212,3212,Alpine & Mission Westbound,Alpine And Mission West Bound,,37.9735233,-121.3253785,0.0,,,,,0
+7052,7052,Alpine & Franklin Westbound,Alpine And Franklin West Bound,,37.9720841,-121.3313573,0.0,,,,,0
+7044,7044,Country Club & Fontana Eastbound,Country Club And Fontana East Bound,,37.9638838,-121.3371081,0.0,,,,,0
+3213,3213,Country Club & Plymouth Eastbound,Country Club And Plymouth East Bound,,37.964501,-121.3346678,0.0,,,,,0
+3214,3214,Country Club & Clipper Eastbound,Country Club And Clipper East Bound,W COUNTRY CLUB BL & CLIPPER LN,37.9654801,-121.3307768,0.0,,,,,0
+3215,3215,Country Club & Carlton Eastbound,Country Club And Carlton East Bound,COUNTRY CLUB BLVD & CARLTON AVE,37.9661695,-121.3279448,0.0,,,,,0
+3216,3216,Country Club & Mission Eastbound,Country Club And Mission East Bound,,37.9671681,-121.3239741,0.0,,,,,0
+3217,3217,Country Club & Grange Eastbound,Country Club And Grange East Bound,,37.9684898,-121.3186731,0.0,,,,,0
+3218,3218,Pershing & Elm Southbound,Pershing And Elm South Bound,,37.9649438,-121.3136551,0.0,,,,,0
+3227,3227,San Joaquin & Flora Southbound,San Joaquin And Flora South Bound,,37.9612988,-121.2894573,0.0,,,,,0
+3229,3229,San Joaquin & Lindsay Southbound,San Joaquin And Lindsay South Bound,,37.957327,-121.2884313,0.0,,,,,0
+7032,7032,San Joaquin & Taylor Southbound,San Joaquin And Taylor South Bound,,37.9457458,-121.2852801,0.0,,,,,0
+3233,3233,Fremont & Harrison Westbound,Fremont And Harrison West Bound,,37.9562068,-121.300456,0.0,,,,,0
+3234,3234,Fremont & Baker Westbound,Fremont And Baker West Bound,,37.9557553,-121.3030733,0.0,,,,,0
+3235,3235,Fremont & Yosemite Westbound,Fremont And Yosemite West Bound,,37.9553663,-121.3053376,0.0,,,,,0
+3236,3236,Fremont & Argonaut Westbound,Fremont And Argonaut West Bound,FREMONT ST & ARGONAUT ST,37.9549223,-121.3079526,0.0,,,,,0
+3237,3237,Picardy & Pershing Westbound,Picardy And Pershing West Bound,,37.9592808,-121.3123471,0.0,,,,,0
+3238,3238,Picardy & Argonne Westbound,Picardy And Argonne West Bound,PICARDY DR,37.9590108,-121.3166673,0.0,,,,,0
+3239,3239,Mt Diablo & Buena Vista Westbound,Mt Diablo And Buena Vista West Bound,,37.9590608,-121.3185975,0.0,,,,,0
+3240,3240,Mt Diablo & San Juan Westbound,Mt Diablo And San Juan West Bound,,37.9584718,-121.3220496,0.0,,,,,0
+3241,3241,Mt Diablo & Carlton Westbound,Mt Diablo And Carlton West Bound,,37.9578713,-121.3255991,0.0,,,,,0
+3242,3242,Mt Diablo & I-5 Westbound,Mt Diablo And I-5 West Bound,,37.9571935,-121.3294183,0.0,,,,,0
+3243,3243,Mt Diablo & Kingsley Westbound,Mt Diablo And Kingsley West Bound,,37.9561048,-121.3372513,0.0,,,,,0
+3244,3244,Occidental & Mt Diablo Northbound,Occidental And Mt Diablo North Bound,,37.9557868,-121.3397798,0.0,,,,,0
+3245,3245,Occidental & Toyon Northbound,Occidental And Toyon North Bound,,37.9582346,-121.3404278,0.0,,,,,0
+3190,3190,Rose Marie & Venezia Westbound,Rose Marie And Venezia West Bound,,37.983565,-121.3346718,0.0,,,,,0
+3191,3191,Rose Marie & Lorenzo Westbound,Rose Marie And Lorenzo West Bound,,37.9825423,-121.3368268,0.0,,,,,0
+3247,3247,Mt Diablo & Wilshire Eastbound,Mt Diablo And Wilshire East Bound,,37.9573808,-121.3279166,0.0,,,,,0
+3248,3248,Mt Diablo & Carlton Eastbound,Mt Diablo And Carlton East Bound,,37.9577928,-121.3255308,0.0,,,,,0
+3250,3250,Mt Diablo & San Juan Eastbound,Mt Diablo And San Juan East Bound,,37.9583933,-121.3219585,0.0,,,,,0
+3251,3251,Mt Diablo & Buena Vista Eastbound,Mt Diablo And Buena Vista East Bound,,37.9588826,-121.3190273,0.0,,,,,0
+3252,3252,Picardy & Acacia Eastbound,Picardy And Acacia East Bound,,37.9587318,-121.3163606,0.0,,,,,0
+3253,3253,Picardy & Pershing Eastbound,Picardy And Pershing East Bound,,37.9591638,-121.3124834,0.0,,,,,0
+3254,3254,Fremont & Argonaut Eastbound,Fremont And Argonaut East Bound,,37.9547791,-121.3082528,0.0,,,,,0
+3255,3255,Fremont & Yosemite Eastbound,Fremont And Yosemite East Bound,,37.9552138,-121.3056818,0.0,,,,,0
+3256,3256,Fremont & Baker Eastbound,Fremont And Baker East Bound,,37.9557043,-121.3027483,0.0,,,,,0
+3257,3257,Fremont & Harrison Eastbound,Fremont And Harrison East Bound,,37.9560698,-121.3005746,0.0,,,,,0
+3258,3258,Fremont & Commerce Westbound,Fremont And Commerce West Bound,,37.9573867,-121.2934463,0.0,,,,,0
+3259,3259,Center & Weber Point Southbound,Center And Weber Point South Bound,,37.9559621,-121.292163,0.0,,,,,0
+3261,3261,Pacific & Knoles Northbound,Pacific And Knoles North Bound,,37.9810721,-121.3075388,0.0,,,,,0
+7068,7068,Pacific & Yokuts Southbound,Pacific And Yokuts South Bound,,37.9968708,-121.3150411,0.0,,,,,0
+3262,3262,Pacific & Knoles Southbound,Pacific And Knoles South Bound,,37.9803363,-121.3071785,0.0,,,,,0
+3264,3264,Quail Lakes & March Northbound,Quail Lakes And March North Bound,QUAIL LAKES DR & MARCH LN FS/NB,37.985253,-121.3397808,0.0,,,,,0
+3265,3265,Quail Lakes & Mallard Creek Northbound,Quail Lakes And Mallard Creek North Bound,,37.9885841,-121.3401871,0.0,,,,,0
+3266,3266,Quail Lakes & Round Valley Northbound,Quail Lakes And Round Valley North Bound,QUAIL LAKES  & ROUND VALLEY NS/NB,37.9899736,-121.3406765,0.0,,,,,0
+3267,3267,Quail Lakes & Grizzly Hollow Northbound,Quail Lakes And Grizzly Hollow North Bound,QUAIL LAKES & GRIZZLY HOLLOW FS/NB,37.9941813,-121.3420354,0.0,,,,,0
+3268,3268,Quail Lakes & Pheasant Run Northbound,Quail Lakes And Pheasant Run North Bound,QUAIL LAKES & PHEASANT RUN FS/NB,37.9954293,-121.3386551,0.0,,,,,0
+3269,3269,Quail Lakes & Grouse Run Northbound,Quail Lakes And Grouse Run North Bound,QUAIL LAKES DR,37.9954768,-121.3356075,0.0,,,,,0
+3270,3270,Quail Lakes & Passero Northbound,Quail Lakes And Passero North Bound,QUAIL LAKES & PASSERO NS/NB,37.9971538,-121.3324773,0.0,,,,,0
+3271,3271,Quail Lakes & Tree Swallow Northbound,Quail Lakes And Tree Swallow North Bound,QUAIL LAKES & TREE SWALLOW FS/NB,37.9973646,-121.3285871,0.0,,,,,0
+3272,3272,Quail Lakes & Pershing Northbound,Quail Lakes And Pershing North Bound,QUAIL LAKESR & PERSHING NS/NB,37.9978923,-121.3256965,0.0,,,,,0
+3274,3274,Robinhood & Stratford East Eastbound,Robinhood And Stratford East East Bound,ROBINHOOD DR & STRATFORD EAST FS/EB,37.9995838,-121.3206825,0.0,,,,,0
+3275,3275,Pacific & Robinhood Southbound,Pacific And Robinhood South Bound,,38.0002643,-121.3164041,0.0,,,,,0
+3277,3277,Robinhood & Stratford East Westbound,Robinhood And Stratford East West Bound,ROBINHOOD DR & STRATFORD EAST NS/WB,37.9998216,-121.3203793,0.0,,,,,0
+3278,3278,Robinhood & Stratford West Westbound,Robinhood And Stratford West West Bound,ROBINHOOD DR & STRATFORD WEST NS/WB,37.9992239,-121.3222066,0.0,,,,,0
+7074,7074,Robinhood & Pershing Westbound,Robinhood And Pershing West Bound,ROBINHOOD DR & PERSHING AV NS WB,37.9982471,-121.3250783,0.0,,,,,0
+3279,3279,Quail Lakes & Silver Creek Southbound,Quail Lakes And Silver Creek South Bound,,37.9975378,-121.3281693,0.0,,,,,0
+3280,3280,Quail Lakes & Passero Southbound,Quail Lakes And Passero South Bound,,37.9974398,-121.332038,0.0,,,,,0
+3281,3281,Quail Lakes & Grouse Run Southbound,Quail Lakes And Grouse Run South Bound,QUAIL LAKES DR,37.9957043,-121.3352305,0.0,,,,,0
+3282,3282,Quail Lakes & Meadow Lake Southbound,Quail Lakes And Meadow Lake South Bound,,37.9952401,-121.3404094,0.0,,,,,0
+3283,3283,Quail Lakes & Grizzy Hollow Southbound,Quail Lakes And Grizzy Hollow South Bound,,37.9935236,-121.3425563,0.0,,,,,0
+3284,3284,Quail Lakes & Round Valley Southbound,Quail Lakes And Round Valley South Bound,,37.9898698,-121.3408873,0.0,,,,,0
+3285,3285,Quail Lakes @ Shopping Center Southbound,Quail Lakes At Shopping Center South Bound,,37.9867494,-121.3402571,0.0,,,,,0
+3286,3286,March @ I-5 76 Gas Station Westbound,March At I-5 76 Gas Station West Bound,MARCH LN @ I-5 76 GAS STATION MB/WB,37.9845706,-121.3454038,0.0,,,,,0
+3287,3287,March & Deer Park Westbound,March And Deer Park West Bound,MARCH LN & DEER PARK DR NS/WB,37.9843058,-121.3504443,0.0,,,,,0
+3298,3298,Pershing & Swain Southbound,Pershing And Swain South Bound,PERSHING AV & SWAIN RD NS/SB & SWAIN,38.0026485,-121.3272623,0.0,,,,,0
+3297,3297,Pershing & Douglas Southbound,Pershing And Douglas South Bound,PERSHING AV & DOUGLAS RD FS/SB,38.0046281,-121.3280823,0.0,,,,,0
+3299,3299,Pershing & Longview Southbound,Pershing And Longview South Bound,PERSHING AV & LONGVIEW AV NS/SB,38.0010871,-121.3266081,0.0,,,,,0
+3291,3291,Driftwood & Brookside Eastbound,Driftwood And Brookside East Bound,DRIFTWOOD PL & BROOKSIDE RD FS/EB,37.9895243,-121.3535073,0.0,,,,,0
+3292,3292,Driftwood & Bike Trail Eastbound,Driftwood And Bike Trail East Bound,DRIFTWOOD PL & BIKE TRAIL MB/EB,37.989655,-121.3493413,0.0,,,,,0
+7085,7085,Holman & Windflower Northbound,Holman And Windflower North Bound,,38.0105525,-121.273001,0.0,,,,,0
+3323,3323,Hammertown & Montauban Westbound,Hammertown And Montauban West Bound,,38.016643,-121.2893383,0.0,,,,,0
+3355,3355,Fremont & Eastland Plaza Eastbound,Fremont And Eastland Plaza East Bound,FREMONT ST & EASTLAND PLAZA,37.9611933,-121.2694531,0.0,,,,,0
+3356,3356,Fremont & E Eastbound,Fremont And E East Bound,,37.9636003,-121.2600799,0.0,,,,,0
+3357,3357,Fremont & Filbert Eastbound,Fremont And Filbert East Bound,,37.9654661,-121.2559259,0.0,,,,,0
+3371,3371,Waterloo & Filbert Westbound,Waterloo And Filbert West Bound,,37.976524,-121.2628023,0.0,,,,,0
+7096,7096,Wilson & Lindsay Southbound,Wilson And Lindsay South Bound,,37.9596623,-121.2726806,0.0,,,,,0
+3363,3363,Sanguinetti & Wilson Southbound,Sanguinetti And Wilson South Bound,,37.9837931,-121.2715801,0.0,,,,,0
+3364,3364,Funston & Jersey Southbound,Funston And Jersey South Bound,,37.9815086,-121.2708891,0.0,,,,,0
+3389,3389,Fremont & E Westbound,Fremont And E West Bound,,37.963801,-121.260282,0.0,,,,,0
+3385,3385,Martin Luther King & San Joaquin Westbound,Mlk And San Joaquin West Bound,,37.939442,-121.2837793,0.0,,,,,0
+3391,3391,Fremont & Golden Gate Eastbound,Fremont And Golden Gate East Bound,,37.967882,-121.2504603,0.0,,,,,0
+3451,3451,Herndon & Blue Ridge Southbound,Herndon And Blue Ridge South Bound,,38.0066041,-121.3567096,0.0,,,,,0
+7115,7115,El Dorado & Hammer Northbound,El Dorado And Hammer North Bound,,38.0216123,-121.3150928,0.0,,,,,0
+3522,3522,Wigwam & Cherokee Southbound,Wigwam And Cherokee South Bound,,37.9864906,-121.2572973,0.0,,,,,0
+7016,7016,Mt Diablo & Ryde Eastbound,Mt Diablo And Ryde East Bound,,37.9565213,-121.332988,0.0,,,,,0
+7021,7021,Mall Transfer (South),Mall Transfer (South),W YOKUTS AV,37.9969801,-121.3128506,,,,,,0
+3633,3633,Cordova & Kermit Eastbound,Cordova And Kermit East Bound,,38.0161691,-121.3039103,0.0,,,,,0
+3639,3639,Holiday & Yorkshire Southbound,Holiday And Yorkshire South Bound,,38.0022583,-121.2981808,0.0,,,,,0
+3648,3648,B & 8Th Northbound,B And 8Th North Bound,,37.9344603,-121.2555658,0.0,,,,,0
+3656,3656,Stanislaus & Miner Southbound,Stanislaus And Miner South Bound,,37.9567156,-121.2828208,0.0,,,,,0
+3660,3660,Pershing & Vine Northbound,Pershing And Vine North Bound,,37.9616076,-121.3125706,0.0,,,,,0
+7144,7144,Wilson & Jackson Southbound,Wilson And Jackson South Bound,,37.9434264,-121.2682838,0.0,,,,,0
+7146,7146,8Th & Nightingale Eastbound,8Th And Nightingale East Bound,,37.9368953,-121.2440946,0.0,,,,,0
+3624,3624,Holiday & Holiday Northbound,Holiday And Holiday North Bound,,38.003112,-121.298572,0.0,,,,,0
+7150,7150,Main & Filbert Eastbound,Main And Filbert East Bound,MAIN ST & FILBERT ST,37.9547613,-121.2515058,0.0,,,,,0
+3711,3711,Cardinal & Ardelle Southbound,Cardinal And Ardelle South Bound,CARDINAL AVE & ARDELLE AVE,37.9621398,-121.2210205,0.0,,,,,0
+7155,7155,Downtown Transit Center Weber Avenue,Dtc Weber Avenue,,37.9546731,-121.2852136,0.0,,,,,0
+7154,7154,Fremont & Eastland Plaza Westbound,Fremont And Eastland Plaza West Bound,,37.961222,-121.2700938,0.0,,,,,0
+3728,3728,Hammer & Kelley Eastbound,Hammer And Kelley East Bound,,38.0212078,-121.3557028,0.0,,,,,0
+3730,3730,Hammer & Kelley Westbound,Hammer And Kelley West Bound,,38.0214593,-121.3565503,0.0,,,,,0
+3729,3729,Hammer & Richland Eastbound,Hammer And Richland East Bound,HAMMER LN & RICHLAND WY EB/FS,38.0211813,-121.3510469,0.0,,,,,0
+3737,3737,Don & Portola Northbound,Don And Portola North Bound,,38.0270141,-121.3454418,0.0,,,,,0
+3740,3740,A.G. Spanos & Thornton Westbound,A.G. Spanos And Thornton West Bound,,38.0556875,-121.3520828,0.0,,,,,0
+3741,3741,A.G. Spanos & Stoney Gorge Northbound,A.G. Spanos And Stoney Gorge North Bound,,38.0547667,-121.3575172,0.0,,,,,0
+3742,3742,A.G. Spanos & Banyon Southbound,A.G. Spanos And Banyon South Bound,,38.0507917,-121.3586553,0.0,,,,,0
+3743,3743,Iron Canyon & Freshwater Westbound,Iron Canyon And Freshwater West Bound,,38.0496239,-121.3655692,0.0,,,,,0
+7177,7177,Scott Creek & Ridgeview Westbound,Scott Creek And Ridgeview West Bound,,38.0561003,-121.3824496,0.0,,,,,0
+3744,3744,Scott Creek & Trinity Westbound,Scott Creek And Trinity West Bound,,38.0539311,-121.3759116,0.0,,,,,0
+3745,3745,Mokelumne & Hennessey Southbound,Mokelumne And Hennessey South Bound,,38.0531433,-121.3832306,0.0,,,,,0
+3746,3746,Mokelumne & Melones Southbound,Mokelumne And Melones South Bound,,38.0500836,-121.3856766,0.0,,,,,0
+3747,3747,Mokelumne & Havencrest Southbound,Mokelumne And Havencrest South Bound,,38.047785,-121.3795706,0.0,,,,,0
+3748,3748,Mokelumne & Pasadena Southbound,Mokelumne And Pasadena South Bound,,38.047486,-121.380001,0.0,,,,,0
+7178,7178,Cosumnes & Trinity Eastbound,Cosumnes And Trinity East Bound,,38.0482651,-121.3734478,0.0,,,,,0
+3749,3749,Iron Canyon & Freshwater Eastbound,Iron Canyon And Freshwater East Bound,,38.0492276,-121.3648805,0.0,,,,,0
+3750,3750,A.G. Spanos & Banyon Southbound,A.G. Spanos And Banyon South Bound,,38.0511825,-121.3582968,0.0,,,,,0
+3751,3751,A.G. Spanos & Stoney Gorge Southbound,A.G. Spanos And Stoney Gorge South Bound,,38.0545781,-121.3573066,0.0,,,,,0
+3752,3752,A.G. Spanos & Siskiyou Southbound,A.G. Spanos And Siskiyou South Bound,,38.055171,-121.3536534,0.0,,,,,0
+7326,7326,Thornton & Whistler Southbound,Thornton And Whistler South Bound,,38.0489073,-121.351094,0.0,,,,,0
+3784,3784,Don & Wagner Heights Southbound,Don And Wagner Heights South Bound,,38.0336323,-121.3459488,0.0,,,,,0
+3785,3785,Don & Waudman Southbound,Don And Waudman South Bound,,38.0293868,-121.3456256,0.0,,,,,0
+3786,3786,Don & Marseille Southbound,Don And Marseille South Bound,,38.0263431,-121.3455769,0.0,,,,,0
+7186,7186,Pershing & Benjamin Holt Southbound,Pershing And Benjamin Holt South Bound,PERSHING AV & BEN HOLT DR NS SB,38.0086858,-121.3294143,0.0,,,,,0
+7193,7193,Commerce & Steamboat Landing Southbound,Commerce And Steamboat Landing South Bound,,37.952277,-121.2924236,,,,,,0
+3835,3835,Old Hospital & North Loop,Old Hospital And North Loop,,37.8875006,-121.2833973,0.0,,,,,0
+3859,3859,Lincoln & Sonora Northbound,Lincoln And Sonora North Bound,,37.9475976,-121.2964733,0.0,,,,,0
+3913,3913,Thornton & Wagner Heights Northbound,Thornton And Wagner Heights North Bound,,38.0358268,-121.3392686,0.0,,,,,0
+7249,7249,Togninali & 99 Frontage Westbound,Togninali And 99 Frontage West Bound,,37.9182306,-121.229258,0.0,,,,,0
+3961,3961,Holman & Snow Creek Northbound,Holman And Snow Creek North Bound,,38.0350963,-121.2695173,0.0,,,,,0
+3971,3971,East & Carlton Southbound,East And Carlton South Bound,,37.7458861,-121.4212206,0.0,,,,,0
+7258,7258,Downtown Transit Center Channel Eastbound,Dtc Channel East Bound,DTC C&S DPT,37.9553715,-121.2858043,0.0,,,,,0
+7301,7301,Robinhood & Pacific Eastbound,Robinhood And Pacific East Bound,,38.0009198,-121.314537,0.0,,,,,0
+7304,7304,Myrtle & Oro Westbound,Myrtle And Oro West Bound,,37.9654715,-121.2393531,0.0,,,,,0
+4001,4001,Hammer & Alexandria Eastbound,Hammer And Alexandria East Bound,,38.020982,-121.3353858,0.0,,,,,0
+4002,4002,Hammer & Amber Eastbound,Hammer And Amber East Bound,,38.020954,-121.3316151,0.0,,,,,0
+4003,4003,Hammer & El Dorado Eastbound,Hammer And El Dorado East Bound,,38.020994,-121.315154,0.0,,,,,0
+4004,4004,Hammer & Lan Ark Eastbound,Hammer And Lan Ark East Bound,,38.0207843,-121.3092084,0.0,,,,,0
+4005,4005,Hammer & Tam O'Shanter Eastbound,Hammer And Tam O'Shanter East Bound,,38.0207946,-121.3001151,0.0,,,,,0
+3978,3978,Hammer & El Dorado Westbound,Hammer And El Dorado West Bound,HAMMER LN & EL DORADO ST,38.0210713,-121.315605,0.0,,,,,0
+3979,3979,Hammer & Misty Westbound,Hammer And Misty West Bound,,38.0211201,-121.3321211,0.0,,,,,0
+7526,7526,Holman & Windflower Southbound,Holman And Windflower South Bound,,38.0097543,-121.2732078,0.0,,,,,0
+7263,7263,El Dorado & Iris Southbound,El Dorado And Iris South Bound,,38.022183,-121.3155321,0.0,,,,,0
+7708,7708,Carolyn Weston & Manthey Westbound,Carolyn Weston And Manthey West Bound,,37.9122501,-121.2949241,,,,,,0
+7019,7019,West Lane & Stadium Northbound,West Lane And Stadium North Bound,,37.9858201,-121.2843616,,,,,,0
+7175,7175,Thornton & Whistler Northbound,Thornton And Whistler North Bound,,38.0495766,-121.3508704,0.0,,,,,0
+7783,7783,Kirk & Alpine Northbound,Kirk And Alpine North Bound,,37.9686406,-121.3436375,0.0,,,,,0
+7784,7784,Martin Luther King & French Camp Eastbound,Mlk And French Camp East Bound,,37.9381415,-121.2895383,0.0,,,,,0
+4008,4008,Oro & Guernsey Northbound,Oro And Guernsey North Bound,ORO AVE & GUERNSEY AVE,37.9522426,-121.2334616,0.0,,,,,0
+7780,7780,Alpine & Sanguinetti Westbound,Alpine And Sanguinetti West Bound,,37.9867398,-121.2733246,0.0,,,,,0
+4022,4022,Lorraine & Amaretto Southbound,Lorraine And Amaretto South Bound,,38.0127166,-121.2851383,0.0,,,,,0
+7777,7777,Bianchi & March Southbound,Bianchi And March South Bound,,38.0024176,-121.284357,0.0,,,,,0
+7787,7787,Cherokee & Myran Southbound,Cherokee And Myran South Bound,CHEROKEE RD & MYRAN AVE,37.9836281,-121.2604113,0.0,,,,,0
+7789,7789,Rose Marie & Mcgaw Eastbound,Rose Marie And Mcgaw East Bound,,37.9847853,-121.3279706,0.0,,,,,0
+7791,7791,Meadow & Hammer Southbound,Meadow And Hammer South Bound,MEADOW AVE & HAMMER LN FS SB & HAMMER LN,38.0207655,-121.3455013,0.0,,,,,0
+4045,4045,Don & Santiago Southbound,Don And Santiago South Bound,DON AVE & SANTIAGO AVE FS SB,38.023094,-121.3455856,0.0,,,,,0
+4047,4047,Hammer & Montauban Eastbound,Hammer And Montauban East Bound,,38.0207803,-121.2892123,0.0,,,,,0
+4048,4048,Hammer & Alexandria Westbound,Hammer And Alexandria West Bound,,38.0212896,-121.3365443,0.0,,,,,0
+3982,3982,Park & Center Westbound,Park And Center West Bound,,37.9594646,-121.2932476,0.0,,,,,0
+4009,4009,Oro & Guersey Southbound,Oro And Guersey South Bound,,37.9522384,-121.2336137,0.0,,,,,0
+7794,7794,Morada & Diamond Bar Eastbound,Morada And Diamond Bar East Bound,MORADA LN & DIAMOND BAR,38.0369703,-121.2617005,0.0,,,,,0
+3983,3983,Inspiration & Vernaccia Westbound,Inspiration And Vernaccia West Bound,,38.0308638,-121.2614473,0.0,,,,,0
+3984,3984,Inspiration & Maranatha Westbound,Inspiration And Maranatha West Bound,,38.0311101,-121.2647881,0.0,,,,,0
+3985,3985,Inspiration & Rieti Westbound,Inspiration And Rieti West Bound,,38.0315388,-121.2676053,0.0,,,,,0
+7795,7795,Holman & Inspiration Southbound,Holman And Inspiration South Bound,,38.0311548,-121.2698566,0.0,,,,,0
+7796,7796,Holman & Inspiration Northbound,Holman And Inspiration North Bound,,38.0318883,-121.2694543,0.0,,,,,0
+3987,3987,March & Weber Ranch Eastbound,March And Weber Ranch East Bound,,38.0027161,-121.2875116,0.0,,,,,0
+4055,4055,Holman & Bryant Northbound,Holman And Bryant North Bound,,38.0275286,-121.269428,0.0,,,,,0
+4056,4056,Knickerbocker & Tam O'Shanter Eastbound,Knickerbocker And Tam O'Shanter East Bound,,38.0225296,-121.3000113,0.0,,,,,0
+7339,7339,Hammertown @ Kaiser Eastbound,Hammertown At Kaiser East Bound,,38.0165525,-121.296345,0.0,,,,,0
+4060,4060,Harlan & Louise Northbound,Harlan And Louise North Bound,HARLAN RD & LOUSIE AVE,37.8126016,-121.2916208,0.0,,,,,0
+4062,4062,Grant Line & Macarthur Westbound,Grant Line And Macarthur West Bound,,37.7543423,-121.4151616,,,,,,0
+3990,3990,West Lane & Hammer Southbound,West Lane And Hammer South Bound,,38.0203471,-121.2950513,0.0,,,,,0
+7807,7807,March & Fred Russo Eastbound,March And Fred Russo East Bound,,38.0054778,-121.2759483,0.0,,,,,0
+7808,7808,March & Fred Russo Westbound,March And Fred Russo West Bound,,38.0056348,-121.2766506,0.0,,,,,0
+7810,7810,Main & Northgate Northbound,Main And Northgate North Bound,,37.8179733,-121.2171485,,,,,,0
+7811,7811,Main & Northgate Southbound,Main And Northgate South Bound,,37.8181274,-121.2174258,,,,,,0
+4078,4078,Odell & Downing Northbound,Odell And Downing North Bound,,37.9130103,-121.2812956,0.0,,,,,0
+4077,4077,Odell & Downing Southbound,Odell And Downing South Bound,O'DELL AVE & DOWNING AVE,37.9136618,-121.2816749,0.0,,,,,0
+4079,4079,Odell & Wait Southbound,Odell And Wait South Bound,O'DELL AVE & WAIT AVE,37.9112428,-121.2806993,0.0,,,,,0
+4082,4082,Davis & Theresa Northbound,Davis And Theresa North Bound,,38.0378551,-121.3317698,0.0,,,,,0
+4085,4085,Brookside & March Northbound,Brookside And March North Bound,BROOKSIDE RD,37.9854351,-121.3549701,0.0,,,,,0
+4086,4086,Rose Marie & Crown Eastbound,Rose Marie And Crown East Bound,,37.9861221,-121.3224908,0.0,,,,,0
+4091,4091,Louise & Cambridge Eastbound,Louise And Cambridge East Bound,,37.8116971,-121.2832196,0.0,,,,,0
+4090,4090,Louise & Cambridge Westbound,Louise And Cambridge West Bound,,37.8118891,-121.2839753,0.0,,,,,0
+7823,7823,Pacific & Yokuts Northbound,Pacific And Yokuts North Bound,,37.9976861,-121.3150865,0.0,,,,,0
+7826,7826,Mt Diablo & Pixie Woods (1 Sch),Mt Diablo And Pixie Woods (1 Sch),MT DIABLO AVE & PIXIE WOODS,37.9549068,-121.3425986,0.0,,,,,0
+4102,4102,Harding & Golden Gate Eastbound,Harding And Golden Gate East Bound,,37.9748538,-121.2551213,0.0,,,,,0
+4105,4105,San Joaquin & Park Southbound,San Joaquin And Park South Bound,,37.9597076,-121.2890666,0.0,,,,,0
+4109,4109,Magnolia & Aurora Eastbound,Magnolia And Aurora East Bound,,37.9652166,-121.2834448,0.0,,,,,0
+4118,4118,Los Molinas & Goya Southbound,Los Molinas And Goya South Bound,,38.018571,-121.3071853,,,,,,0
+7848,7848,Sutter Gould Medical Center,Sutter Gould Medical Center,SUTTER GOULD MED CTR,38.0217978,-121.346268,,,,,,0
+7850,7850,Tracy Transit Station,Tracy Transit Station,,37.7340601,-121.4253768,,,,,,0
+7851,7851,East & 10Th Southbound,East And 10Th South Bound,,37.7383695,-121.4212108,0.0,,,,,0
+7901,7901,Airport & 8Th Northbound,Airport And 8Th North Bound,,37.9319563,-121.2671975,0.0,,,,,0
+7903,7903,Aurora & Weber Southbound,Aurora And Weber South Bound,,37.9562091,-121.2799463,0.0,,,,,0
+7904,7904,Aurora & Channel Northbound,Aurora And Channel North Bound,,37.9568393,-121.2799281,0.0,,,,,0
+7905,7905,Airport & Sonora Southbound,Airport And Sonora South Bound,,37.9511981,-121.2731333,0.0,,,,,0
+7906,7906,Airport & Sonora Northbound,Airport And Sonora North Bound,,37.9516311,-121.273068,0.0,,,,,0
+7911,7911,B & 9Th Southbound,B And 9Th South Bound,,37.9326731,-121.2549855,0.0,,,,,0
+4145,4145,Pacific & Walnut Northbound,Pacific And Walnut North Bound,,37.9683765,-121.2985783,0.0,,,,,0
+4146,4146,Pacific & Walnut Southbound,Pacific And Walnut South Bound,,37.9687523,-121.2988946,0.0,,,,,0
+4142,4142,B & Gerald Southbound,B And Gerald South Bound,,37.927523,-121.252836,,,,,,0
+4143,4143,B & Ralph Southbound,B And Ralph South Bound,,37.9232853,-121.2512131,0.0,,,,,0
+4157,4157,Lever & Hawaii Westbound,Lever And Hawaii West Bound,,37.9232595,-121.3007756,0.0,,,,,0
+4158,4158,Lever & Donati Westbound,Lever And Donati West Bound,,37.9234118,-121.3081089,0.0,,,,,0
+4161,4161,Hickock & Pawnee Southbound,Hickock And Pawnee South Bound,,38.037976,-121.3361208,0.0,,,,,0
+4160,4160,Hickock & Chaparral Southbound,Hickock And Chaparral South Bound,,38.0410293,-121.3340186,0.0,,,,,0
+4164,4164,Ponce De Leon & Santa Maria Eastbound,Ponce De Leon And Santa Maria East Bound,,38.0300524,-121.3215843,,,,,,0
+4165,4165,Ponce De Leon & Santa Paula Eastbound,Ponce De Leon And Santa Paula East Bound,,38.0300559,-121.3191601,,,,,,0
+7916,7916,8Th & Pajaro Eastbound,8Th And Pajaro East Bound,,37.9265791,-121.3096398,0.0,,,,,0
+4068,4068,Main & Shasta Eastbound,Main And Shasta East Bound,,37.9545441,-121.2475416,0.0,,,,,0
+4067,4067,Main & David Westbound,Main And David West Bound,,37.954688,-121.2472063,0.0,,,,,0
+7921,7921,Country Club & Ryde Westbound,Country Club And Ryde West Bound,,37.9642873,-121.336306,0.0,,,,,0
+4129,4129,March & Feather River Eastbound,March And Feather River East Bound,MARCH LN & FEATHER RIVER FS EB,37.9841631,-121.3471783,0.0,,,,,0
+7923,7923,Mcgaw & Rose Marie Northbound,Mcgaw And Rose Marie North Bound,,37.9850215,-121.3283606,0.0,,,,,0
+4176,4176,Country Club & Gardena Westbound,Country Club And Gardena West Bound,,37.9633453,-121.3399603,0.0,,,,,0
+4177,4177,Kirk & Michigan Northbound,Kirk And Michigan North Bound,,37.9661046,-121.3426383,0.0,,,,,0
+4183,4183,Dry Creek & Diablo Creek Northbound,Dry Creek And Diablo Creek North Bound,,37.9254636,-121.3089713,0.0,,,,,0
+4185,4185,Bianchi & Ebbet Westbound,Bianchi And Ebbet West Bound,,37.9908701,-121.3063476,0.0,,,,,0
+4186,4186,Bianchi & Claremont Eastbound,Bianchi And Claremont East Bound,,37.9908049,-121.3055499,0.0,,,,,0
+4120,4120,Cherokee & F Eastbound,Cherokee And F East Bound,,37.9779179,-121.2644725,0.0,,,,,0
+9901,9901,Lathrop Park and Ride,Lathrop Park And Ride,,37.8246678,-121.2876546,,,,,,0
+4189,4189,Martin Luther King & El Dorado Eastbound,Mlk And El Dorado East Bound,,37.9389023,-121.2856508,0.0,,,,,0
+4190,4190,Martin Luther King & Sutter Eastbound,Mlk And Sutter East Bound,,37.9395434,-121.2818216,0.0,,,,,0
+4195,4195,8Th & Lever Eastbound,8Th And Lever East Bound,8TH ST & LEVER BLVD,37.9265815,-121.2970108,0.0,,,,,0
+4196,4196,Waterloo & Report Eastbound,Waterloo And Report East Bound,WATERLOO RD & REPORT AVE,37.9818833,-121.2541495,0.0,,,,,0
+4197,4197,Waterloo & Report Westbound,Waterloo And Report West Bound,WATERLOO RD & REPORT AVE,37.9816833,-121.2548463,0.0,,,,,0
+4198,4198,Mathews & Wolfe Westbound,Mathews And Wolfe West Bound,,37.8827341,-121.3014683,0.0,,,,,0
+4199,4199,East & Highland Southbound,East And Highland South Bound,,37.7424008,-121.4212361,0.0,,,,,0
+4205,4205,Oak & El Dorado Eastbound,Oak And El Dorado East Bound,,37.9586831,-121.2911396,0.0,,,,,0
+7932,7932,Hammer & Kathleen Eastbound,Hammer And Kathleen East Bound,,38.0207706,-121.2964194,0.0,,,,,0
+4209,4209,West Lane & Morada Northbound,West Lane And Morada North Bound,,38.0363401,-121.2948238,0.0,,,,,0
+4210,4210,Hutchins & Century Northbound,Hutchins And Century North Bound,,38.1067216,-121.2787088,0.0,,,,,0
+4211,4211,Hutchins & Century Southbound,Hutchins And Century South Bound,,38.1072058,-121.2789878,0.0,,,,,0
+4212,4212,West Lane & Morada Southbound,West Lane And Morada South Bound,,38.0387906,-121.2952971,0.0,,,,,0
+4224,4224,Fremont & Van Buren Eastbound,Fremont And Van Buren East Bound,,37.956648,-121.2972983,0.0,,,,,0
+4213,4213,Swain & Kermit Westbound,Swain And Kermit West Bound,,38.0095721,-121.2997993,0.0,,,,,0
+4214,4214,Tam O'Shanter & Swain Southbound,Tam O'Shanter And Swain South Bound,,38.0106946,-121.2964693,0.0,,,,,0
+4226,4226,Lorraine & Hammer Northbound,Lorraine And Hammer North Bound,,38.0203603,-121.2831968,0.0,,,,,0
+4230,4230,Holman & Etcheverry Southbound,Holman And Etcheverry South Bound,,38.0042006,-121.2719353,0.0,,,,,0
+7950,7950,Manteca Transit Center,Manteca Transit Center,,37.7943749,-121.2142853,,,,,,0
+7952,7952,Colony & Brady Southbound,Colony And Brady South Bound,,37.7539258,-121.1365121,0.0,,,,,0
+4235,4235,Oregon & Oxford Northbound,Oregon And Oxford North Bound,,37.9638048,-121.3436083,0.0,,,,,0
+4236,4236,8Th & D Eastbound,8Th And D East Bound,,37.9349375,-121.2510653,0.0,,,,,0
+4238,4238,Maranatha & Kirsten Northbound,Maranatha And Kirsten North Bound,,38.0285096,-121.2640588,0.0,,,,,0
+4240,4240,Wilma & Hughes Southbound,Wilma And Hughes South Bound,,37.7420083,-121.1355966,0.0,,,,,0
+4241,4241,Main & Nikkel Westbound,Main And Nikkel West Bound,,37.7395881,-121.1396136,0.0,,,,,0
+4242,4242,Jack Tone & Canal Eastbound,Jack Tone And Canal East Bound,,37.7475316,-121.1421826,0.0,,,,,0
+4245,4245,Mcdougald & Ishi Goto Northbound,Mcdougald And Ishi Goto North Bound,,37.9097303,-121.2970858,0.0,,,,,0
+4244,4244,Mcdougald & Bess Southbound,Mcdougald And Bess South Bound,,37.9047346,-121.2955366,0.0,,,,,0
+4243,4243,Mcdougald & Ishi Goto Southbound,Mcdougald And Ishi Goto South Bound,,37.9094976,-121.2971758,0.0,,,,,0
+4247,4247,8Th & D Westbound,8Th And D West Bound,,37.9350383,-121.2513901,0.0,,,,,0
+4246,4246,Colony & Goodwin Eastbound,Colony And Goodwin East Bound,,37.7539201,-121.1341561,0.0,,,,,0
+4248,4248,Mission & Bristol Northbound,Mission And Bristol North Bound,,37.9697784,-121.3242216,0.0,,,,,0
+4251,4251,Royal Oaks & Royal Park Westbound,Royal Oaks And Royal Park West Bound,,38.0368861,-121.3307098,0.0,,,,,0
+4252,4252,Royal Oaks & Lower Sacramento Westbound,Royal Oaks And Lower Sacramento West Bound,,38.0369298,-121.3231526,0.0,,,,,0
+7953,7953,East & Grant Line Northbound,East And Grant Line North Bound,,37.7535723,-121.4211501,0.0,,,,,0
+4253,4253,East & Highland Northbound,East And Highland North Bound,,37.7420283,-121.4211093,0.0,,,,,0
+4254,4254,Wilcox & Waterloo Northbound,Wilcox And Waterloo North Bound,,37.9881858,-121.2442511,,,,,,0
+4257,4257,California & Ellis Southbound,California And Ellis South Bound,,37.9766953,-121.2916346,0.0,,,,,0
+4259,4259,Wilson @ Flea Market,Wilson At Flea Market,,37.9921033,-121.2661626,0.0,,,,,0
+4119,4119,Lincoln & 6Th Southbound,Lincoln And 6Th South Bound,,37.9295826,-121.2908538,0.0,,,,,0
+4260,4260,8Th & Pock Westbound,8Th And Pock West Bound,,37.9360531,-121.2474871,0.0,,,,,0
+4261,4261,99 Frontage @ Boeing Southbound,99 Frontage At Boeing South Bound,,37.9104211,-121.2255571,0.0,,,,,0
+4263,4263,B & Industrial Northbound,B And Industrial North Bound,S B ST,37.9122608,-121.2469828,0.0,,,,,0
+4262,4262,B & Industrial Southbound,B And Industrial South Bound,,37.91177,-121.2470036,0.0,,,,,0
+4265,4265,Ralph & B Eastbound,Ralph And B East Bound,,37.9230027,-121.2513656,,,,,,0
+4266,4266,Swain & I-5 Westbound,Swain And I-5 West Bound,,38.000108,-121.3498976,,,,,,0
+4267,4267,Grant Line & Chrisman Eastbound,Grant Line And Chrisman East Bound,,37.7540736,-121.3977603,0.0,,,,,0
+4268,4268,Grant Line & Skylark Eastbound,Grant Line And Skylark East Bound,,37.7540971,-121.4061803,,,,,,0
+4269,4269,Grant Line & Skylark Westbound,Grant Line And Skylark West Bound,,37.7543281,-121.4078053,,,,,,0
+4270,4270,Grant Line & Chrisman Westbound,Grant Line And Chrisman West Bound,,37.7543108,-121.3987668,0.0,,,,,0
+4272,4272,29Th & R Southbound,29Th And R South Bound,,38.5643585,-121.4719696,0.0,,,,,0
+4271,4271,Mathews & Migrant Center Eastbound,Mathews And Migrant Center East Bound,,37.8823101,-121.2863571,0.0,,,,,0
+4274,4274,Martin Luther King & French Camp Turnpike Eastbound,Mlk And French Camp Turnpike East Bound,,37.9379483,-121.2907076,0.0,,,,,0
+4275,4275,Martin Luther King & San Joaquin Eastbound,Mlk And San Joaquin East Bound,,37.9393446,-121.2829904,0.0,,,,,0
+4276,4276,Mariposa & Farmington,Mariposa And Farmington,,37.9385741,-121.2432346,0.0,,,,,0
+4277,4277,Martin Luther King & B Westbound,Mlk And B West Bound,,37.9439158,-121.2601271,0.0,,,,,0
+4278,4278,French Camp & Martin Luther King Southbound,French Camp And Mlk South Bound,,37.9372821,-121.290981,0.0,,,,,0
+4279,4279,8Th & French Camp Westbound,8Th And French Camp West Bound,,37.9270381,-121.2933788,0.0,,,,,0
+4280,4280,French Camp & 7Th Northbound,French Camp And 7Th North Bound,,37.9279205,-121.2936103,0.0,,,,,0
+4282,4282,Pershing & Marco Polo Northbound,Pershing And Marco Polo North Bound,,37.9923393,-121.3231221,0.0,,,,,0
+4283,4283,Pershing & Venetian Northbound,Pershing And Venetian North Bound,,37.9964153,-121.3246656,0.0,,,,,0
+4281,4281,Kirk & Alpine Southbound,Kirk And Alpine South Bound,,37.9685099,-121.3437371,,,,,,0
+4284,4284,UTS,Uts,S UNION ST,37.9394105,-121.2721173,,,,,,0
+4290,4290,Ben Holt & Alturas Eastbound,Ben Holt And Alturas East Bound,,38.0118651,-121.3114549,0.0,,,,,0
+4291,4291,El Dorado & El Campo Northbound,El Dorado And El Campo North Bound,,38.0136663,-121.308667,0.0,,,,,0
+4292,4292,Escalon Park and Ride & Main Street,Escalon Park And Ride And Main Street,,37.795916,-120.994762,0.0,,,,,0
+4300,4300,Wilma & 2Nd Northbound,Wilma And 2Nd North Bound,,37.738053,-121.135342,,,,,,0
+4301,4301,B & Zephyr Northbound,B And Zephyr North Bound,S B ST,37.916486,-121.248403,0.0,,,,,0
+4302,4302,B & Zephyr Southbound,B And Zephyr South Bound,,37.917084,-121.248655,0.0,,,,,0
+4303,4303,Boeing & B Eastbound,Boeing And B East Bound,,37.9095092,-121.2447044,0.0,,,,,0
+4304,4304,Boeing & Pock Eastbound,Boeing And Pock East Bound,,37.9111117,-121.2382628,0.0,,,,,0
+4305,4305,Ralph & Anne Westbound,Ralph And Anne West Bound,,37.921552,-121.2574851,0.0,,,,,0
+4306,4306,Myrtle @ Rtc Westbound,Myrtle At Rtc West Bound,,37.9608209,-121.250652,,,,,,0
+4308,4308,Va Clinic & Manthey,Va Clinic And Manthey,,37.890705,-121.285414,0.0,,,,,0
+4309,4309,Airport & 10Th Northbound,Airport And 10Th North Bound,,37.929468,-121.266228,0.0,,,,,0
