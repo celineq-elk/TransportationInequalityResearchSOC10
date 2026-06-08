@@ -219,6 +219,65 @@ write_caaspp(file.path(DATA, "San Jose_CAASPP.xlsx"),  sj_matched)
 write_caaspp(file.path(DATA, "Stockton_CAASPP.xlsx"), st_matched)
 ```
 
+Get Distance from School to Nearest Transit Stop (in miles)
+```{r distance to nearest stop, echo = TRUE, eval = FALSE, message = FALSE}
+library(readr)
+library(readxl)
+library(dplyr)
+library(sf)
+library(openxlsx)
+
+DATA <- "~/Documents/SOC10_FINALPROJECT/Data Sets"
+
+# compute each school's distance (in miles) to its nearest GTFS transit stop,
+nearest_transit_miles <- function(stops_file, xlsx_path, city) {
+
+  # GTFS stops -> sf points, projected to meters (CA Albers Equal Area, EPSG:3310)
+  stops_sf <- read_csv(file.path(DATA, stops_file), show_col_types = FALSE) %>%
+    filter(!is.na(stop_lat), !is.na(stop_lon)) %>%
+    st_as_sf(coords = c("stop_lon", "stop_lat"), crs = 4326) %>%
+    st_transform(crs = 3310)
+
+  # this city's school coordinates -> sf points in meters
+  schools_sf <- read_csv(file.path(DATA, "school_coords.csv"), show_col_types = FALSE) %>%
+    filter(City == city) %>%
+    st_as_sf(coords = c("lng", "lat"), crs = 4326) %>%
+    st_transform(crs = 3310)
+
+  # nearest-stop distance per school: full school x stop distance matrix, take each row min
+  dist_m  <- st_distance(schools_sf, stops_sf)        # meters, [schools x stops]
+  nearest <- as.numeric(apply(dist_m, 1, min))
+
+  # convert meters -> miles (1 mile = 1609.34 m)
+  scores <- tibble(
+    School        = schools_sf$School,
+    nearest_miles = round(nearest / 1609.34, 4)
+  )
+
+  # write into Excel, matching by School name
+  wb       <- loadWorkbook(file.path(DATA, xlsx_path))
+  sheet_df <- read_excel(file.path(DATA, xlsx_path))
+  for (i in seq_len(nrow(sheet_df))) {
+    sch <- sheet_df$School[i]
+    if (is.na(sch)) next
+    val <- scores$nearest_miles[scores$School == sch]
+    if (length(val) == 1) {
+      writeData(wb, sheet = 1, x = val, startCol = 3, startRow = i + 1, colNames = FALSE)
+    }
+  }
+  saveWorkbook(wb, file.path(DATA, xlsx_path), overwrite = TRUE)
+  cat("Saved", basename(xlsx_path), "- matched",
+      sum(sheet_df$School %in% scores$School), "schools\n")
+  scores
+}
+
+sj_transit <- nearest_transit_miles("sj_stops.txt",       "SanJose_DistanceFromTransitStop.xlsx",  "San Jose")
+st_transit <- nearest_transit_miles("stockton_stops.txt", "Stockton_DistanceFromTransitStop.xlsx", "Stockton")
+
+print(sj_transit)
+print(st_transit)
+```
+
 Join data sets together to get two comprehensive data sets, one each for Stockton and San Jose, displaying data for every 1 mile School Exposure Buffer Zone (Unit of Analysis) in these each of these cities. For each data set, each row looks at 1 high school (and within their 1 mile buffer). Information includes relevant school information (name, district, address, school type (magnet, charter, public Y/N), grade levels), school-based transportation rating, transit distance score, vehicle access score, Mobility Access Index (average of school-based transportation rating, transit distance score, and vehicle access score), crime safety score, safety from crash score, Transportation Safety Index (average of crime safety score and safety from crash score), Risk Score (1.0 minus the average of Mobility Access Index and Transportation Safety Index), and the decimal percent 0.0-1.0 of Unsatisfactory CAASPP scores.
 ```{r all data, echo = TRUE, eval = FALSE, message = FALSE}
 library(tidycensus)
